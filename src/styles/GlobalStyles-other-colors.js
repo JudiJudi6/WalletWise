@@ -7,14 +7,14 @@ const GlobalStyles = createGlobalStyle`
   --color-white-300: #cdcdcd;
 
   --color-black-50: #444;
-  --color-black-100: #252c37;
-  --color-black-200: #1d2733;
+  --color-black-100: #363636;
+  --color-black-200: #242424;
   --color-black-300: #1c1c1c;
-  --color-black-400: #161d28;
+  --color-black-400: #1b1b1b;
   --color-black-500: #100f10;
 
-  --color-main: #6561e7;
-  --color-helper: #334356;
+  --color-main: #9900ff;
+  --color-helper: #c651cd;
 
   
   --color-dark-blue: #2e294e;
