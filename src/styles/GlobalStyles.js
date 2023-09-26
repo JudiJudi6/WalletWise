@@ -9,11 +9,13 @@ const GlobalStyles = createGlobalStyle`
   --color-black-50: #444;
   --color-black-100: #252c37;
   --color-black-200: #1d2733;
-  --color-black-300: #1c1c1c;
-  --color-black-400: #161d28;
+  --color-black-400: #1c1c1c;
+  --color-black-300: #161d28;
   --color-black-500: #100f10;
 
   --color-main: #6561e7;
+  --color-pink: #d765af;
+  --color-purple: #9d70ee;
   --color-helper: #334356;
 
   
