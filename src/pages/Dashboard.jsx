@@ -1,7 +1,9 @@
+import Spinner from "../ui/Spinner"
+
 function Dashboard() {
     return (
         <div>
-            dddddd
+            <Spinner/>
         </div>
     )
 }
