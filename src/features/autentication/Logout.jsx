@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 import { LuLogOut } from "react-icons/lu";
-import { useUserWidth } from "../hooks/useUserWidth";
+import { useUserWidth } from "../../hooks/useUserWidth";
 
 const StyledButton = styled(motion.button)`
   display: flex;

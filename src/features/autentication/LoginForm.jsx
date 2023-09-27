@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { AiOutlineLock, AiOutlineMail } from "react-icons/ai";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../../ui/Button";
 
 const StyledLoginForm = styled.div`
   position: relative;

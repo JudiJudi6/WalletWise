@@ -2,7 +2,7 @@ import { TbBrandCashapp } from "react-icons/tb";
 import styled, { css } from "styled-components";
 import { useUserWidth } from "../hooks/useUserWidth";
 import Logo from "../ui/Logo";
-import LoginForm from "../ui/LoginForm";
+import LoginForm from "../features/autentication/LoginForm";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 

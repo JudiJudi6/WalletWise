@@ -6,7 +6,7 @@ import NavButton from "./NavButton";
 import { RxDashboard } from "react-icons/rx";
 import { IoIosStats } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
-import Logout from "./Logout";
+import Logout from "../features/autentication/Logout";
 
 const StyledMobileNav = styled(motion.nav)`
   position: absolute;
