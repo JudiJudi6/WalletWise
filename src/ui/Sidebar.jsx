@@ -14,7 +14,7 @@ const StyledSideBar = styled.aside`
   align-items: center;
   padding: 2rem;
   /* padding: 3.2rem 2.4rem; */
-  background-color: var(--color-black-400);
+  background-color: var(--color-black-300);
   grid-row: 1 / -1;
 `;
 

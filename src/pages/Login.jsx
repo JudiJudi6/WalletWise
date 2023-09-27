@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { useUserWidth } from "../hooks/useUserWidth";
 import Logo from "../ui/Logo";
 import LoginForm from "../ui/LoginForm";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -57,7 +59,7 @@ const Icon = styled(TbBrandCashapp)`
   align-self: ${(props) => props.align};
 `;
 
-const CircleOne = styled.div`
+const CircleOne = styled(motion.div)`
   position: absolute;
   top: ${(props) => props.top};
   left: ${(props) => props.left};
@@ -65,6 +67,8 @@ const CircleOne = styled.div`
   height: ${(props) => props.size};
   border-radius: 50%;
   z-index: 0;
+  cursor: grabbing;
+  box-shadow: 1px 1px 5px 0px black;
   background-image: linear-gradient(
     ${(props) => props.deg},
     var(--color-pink),
@@ -97,6 +101,7 @@ const LogoText = styled.span`
 
 function Login() {
   const userWidth = useUserWidth();
+  const ref = useRef(null);
 
   if (userWidth < 567)
     return (
@@ -123,13 +128,66 @@ function Login() {
 
   return (
     <StyledLoginPage width={userWidth}>
-      <MainBlock width={userWidth}>
-        <CircleOne size="50px" deg="90deg" top="30%" left="50%" />
-        <CircleOne size="20px" deg="180deg" top="15%" left="60%" />
-        <CircleOne size="45px" deg="180deg" top="20%" left="70%" />
-        <CircleOne size="60px" deg="180deg" top="50%" left="85%" />
-        <CircleOne size="40px" deg="90deg" top="70%" left="45%" />
-        <CircleOne size="35px" deg="180deg" top="80%" left="70%" />
+      <MainBlock width={userWidth} ref={ref}>
+        <CircleOne
+          size="50px"
+          deg="90deg"
+          top="30%"
+          left="50%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+          dragSnapToOrigin={true}
+        />
+        <CircleOne
+          size="20px"
+          deg="180deg"
+          top="15%"
+          left="60%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+          dragSnapToOrigin={true}
+        />
+        <CircleOne
+          size="45px"
+          deg="180deg"
+          top="20%"
+          left="70%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+          dragSnapToOrigin={true}
+        />
+        <CircleOne
+          size="60px"
+          deg="180deg"
+          top="50%"
+          left="85%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+          dragSnapToOrigin={true}
+        />
+        <CircleOne
+          size="40px"
+          deg="90deg"
+          top="70%"
+          left="45%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+          dragSnapToOrigin={true}
+        />
+        <CircleOne
+          size="35px"
+          deg="180deg"
+          top="80%"
+          left="70%"
+          drag
+          whileDrag={{ scale: 1.2 }}
+          dragConstraints={ref}
+        />
         {/* <CircleOne size="40px" deg="90deg" top="80%" left="80%" /> */}
         <HelperDiv>
           <div>
@@ -146,7 +204,7 @@ function Login() {
           <TextContainer>
             Open an account with us today and enjoy a world of convenience. Make
             seamless online payments, easily convert currencies, and transfer
-            money swiftly to other users' accounts.{" "}
+            money swiftly to other users accounts.{" "}
           </TextContainer>
         </HelperDiv>
 

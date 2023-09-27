@@ -17,17 +17,18 @@ const StyledAppLayout = styled.div`
         `
       : props.width < 567
       ? css`
-        grid-template-columns: auto
-      `
+          grid-template-columns: auto;
+        `
       : css`
           grid-template-columns: 60px 1fr;
         `}
 `;
 
 const Main = styled.main`
-  background-color: var(--color-black-100);
+  background-color: var(--color-black-200);
   padding: 2rem;
   overflow: scroll;
+  box-shadow: 10px 10px 8px -10px black inset;
   height: 100%;
 `;
 

@@ -4,11 +4,12 @@ import BurgerMenu from "./BurgerMenu";
 // import SideTitle from "./SideTitle";
 
 const StyledHeader = styled.div`
-  background-color: var(--color-black-200);
+  background-color: var(--color-black-300);
   padding: 1.2rem 1.8rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  border-bottom: 2px solid var(--color-main);
 
   ${(props) =>
     props.width < 567 &&
