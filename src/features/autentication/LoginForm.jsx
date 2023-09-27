@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { AiOutlineLock, AiOutlineMail } from "react-icons/ai";
 import styled from "styled-components";
 import Button from "../../ui/Button";
+import InputBox from "../../ui/InputBox";
+import { useForm } from "react-hook-form";
+import { useLogin } from "./useLogin";
 
-const StyledLoginForm = styled.div`
+const StyledLoginForm = styled.form`
   position: relative;
   z-index: 1;
   display: flex;
@@ -32,22 +35,14 @@ const Input = styled(motion.input)`
   }
 `;
 
-const InputBox = styled(motion.div)`
-  display: flex;
-  width: 100%;
-  border-bottom: 2px solid var(--color-main);
-`;
-
-const IconBox = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  color: var(--color-main);
-  transition: color 0.3s;
-`;
-
 function LoginForm() {
+  const { login, isLoading } = useLogin();
+  const { register, handleSubmit } = useForm();
+
+  function onSubmit({ email, password }) {
+    login({ email, password });
+  }
+
   function handleAddFocus(e) {
     const parent = e.target.closest(".inputBox");
     const icon = e.target.nextSibling;
@@ -63,21 +58,31 @@ function LoginForm() {
   }
 
   return (
-    <StyledLoginForm>
+    <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
       Login
-      <InputBox className="inputBox">
-        <Input onFocus={handleAddFocus} onBlur={handleRemoveFocus} />
-        <IconBox>
-          <AiOutlineMail />
-        </IconBox>
+      <InputBox icon={<AiOutlineMail />}>
+        <Input
+          onFocus={handleAddFocus}
+          onBlur={handleRemoveFocus}
+          id="email"
+          placeholder="Email"
+          type="email"
+          {...register("email")}
+          disabled={isLoading}
+        />
       </InputBox>
-      <InputBox className="inputBox">
-        <Input onFocus={handleAddFocus} onBlur={handleRemoveFocus} />
-        <IconBox>
-          <AiOutlineLock />
-        </IconBox>
+      <InputBox icon={<AiOutlineLock />}>
+        <Input
+          onFocus={handleAddFocus}
+          onBlur={handleRemoveFocus}
+          id="password"
+          placeholder="Password"
+          type="password"
+          {...register("password")}
+          disabled={isLoading}
+        />
       </InputBox>
-      <Button whileHover={{ scale: 1.05 }}>Login</Button>
+      <Button whileHover={{ scale: 1.05 }} disabled={isLoading}>Login</Button>
     </StyledLoginForm>
   );
 }

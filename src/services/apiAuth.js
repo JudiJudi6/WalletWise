@@ -17,12 +17,12 @@ export async function signUp({ fullName, email, password, nickName, pesel }) {
     if (userTableError) throw new Error(error.message);
     userData = userTableData;
   } else throw new Error(error.message);
-  
+
   return { data, userData };
 }
 
-export async function signIn({ password, email }) {
-  const { data, error } = await supabase.auth.signIn({
+export async function login({ password, email }) {
+  let { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
