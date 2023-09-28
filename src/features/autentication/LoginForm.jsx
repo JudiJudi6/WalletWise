@@ -5,9 +5,6 @@ import Button from "../../ui/Button";
 import InputBox from "../../ui/InputBox";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "./useUser";
-import { useEffect } from "react";
 
 const StyledLoginForm = styled.form`
   position: relative;

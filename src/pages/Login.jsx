@@ -105,16 +105,17 @@ function Login() {
   const userWidth = useUserWidth();
   const ref = useRef(null);
   const navigate = useNavigate();
-  const { isAuthenticated } = useUser();
+  const { user, isAuthenticated } = useUser();
 
   useEffect(() => {
     function chechAuth() {
       if (isAuthenticated) {
         navigate("/dashboard");
+        console.log(user);
       }
     }
     chechAuth();
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, user]);
 
   if (userWidth < 567)
     return (
