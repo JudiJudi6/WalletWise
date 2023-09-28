@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 import { LuLogOut } from "react-icons/lu";
 import { useUserWidth } from "../../hooks/useUserWidth";
+import { useLogOut } from "./useLogOut";
 
 const StyledButton = styled(motion.button)`
   display: flex;
@@ -28,11 +29,14 @@ const StyledButton = styled(motion.button)`
 
 function Logout() {
   const userWidth = useUserWidth();
+  const { logOut, isLoading } = useLogOut();
 
   return (
     <StyledButton
       whileHover={{ scale: 1.05, backgroundColor: "var(--color-black-100)" }}
       width={userWidth}
+      onClick={logOut}
+      disabled={isLoading}
     >
       <LuLogOut />
       {(userWidth > 992 || userWidth < 567) && "Log out"}

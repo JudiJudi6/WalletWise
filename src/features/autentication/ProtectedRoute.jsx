@@ -10,6 +10,7 @@ const FullPage = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
+  background-color: var(--color-black-300);
 `;
 
 function ProtectedRoute({ children }) {

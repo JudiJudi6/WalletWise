@@ -4,7 +4,9 @@ import { useUserWidth } from "../hooks/useUserWidth";
 import Logo from "../ui/Logo";
 import LoginForm from "../features/autentication/LoginForm";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../features/autentication/useUser";
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -102,6 +104,17 @@ const LogoText = styled.span`
 function Login() {
   const userWidth = useUserWidth();
   const ref = useRef(null);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useUser();
+
+  useEffect(() => {
+    function chechAuth() {
+      if (isAuthenticated) {
+        navigate("/dashboard");
+      }
+    }
+    chechAuth();
+  }, [isAuthenticated, navigate]);
 
   if (userWidth < 567)
     return (

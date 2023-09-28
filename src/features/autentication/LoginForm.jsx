@@ -5,6 +5,9 @@ import Button from "../../ui/Button";
 import InputBox from "../../ui/InputBox";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "./useUser";
+import { useEffect } from "react";
 
 const StyledLoginForm = styled.form`
   position: relative;
@@ -40,6 +43,7 @@ function LoginForm() {
   const { register, handleSubmit } = useForm();
 
   function onSubmit({ email, password }) {
+    if (!email || !password) return;
     login({ email, password });
   }
 
@@ -82,7 +86,9 @@ function LoginForm() {
           disabled={isLoading}
         />
       </InputBox>
-      <Button whileHover={{ scale: 1.05 }} disabled={isLoading}>Login</Button>
+      <Button whileHover={{ scale: 1.05 }} disabled={isLoading}>
+        Login
+      </Button>
     </StyledLoginForm>
   );
 }
