@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
   --color-pink: #d765af;
   --color-purple: #9d70ee;
   --color-helper: #334356;
+  --color-error: #d20700;
 
   
   --color-dark-blue: #2e294e;
@@ -77,6 +78,19 @@ textarea:focus,
 select:focus {
   outline: 2px solid var(--color-main);
   outline-offset: -1px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  font-size: 2rem;
+  background-image: url('/public/calendar.svg');
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 button:has(svg) {

@@ -3,24 +3,37 @@ import styled from "styled-components";
 
 const StyledInputBox = styled(motion.div)`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  border-bottom: 2px solid var(--color-main);
 `;
 
 const IconBox = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 30px;
   color: var(--color-main);
   transition: color 0.3s;
 `;
 
-function InputBox({ children, icon }) {
+const HelperDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid var(--color-main);
+  width: 100%;
+`;
+
+const Error = styled.p`
+  color: var(--color-error);
+  font-size: 1rem;
+`;
+
+function InputBox({ children, icon, errors }) {
   return (
-    <StyledInputBox className="inputBox">
-      {children}
-      <IconBox>{icon}</IconBox>
+    <StyledInputBox >
+      <HelperDiv className="inputBox">
+        {children}
+        {icon && <IconBox>{icon}</IconBox>}
+      </HelperDiv>
+      {errors && <Error>{errors}</Error>}
     </StyledInputBox>
   );
 }

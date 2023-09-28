@@ -4,9 +4,11 @@ import { useUserWidth } from "../hooks/useUserWidth";
 import Logo from "../ui/Logo";
 import LoginForm from "../features/autentication/LoginForm";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/autentication/useUser";
+import SignUpButton from "../features/autentication/SignUpButton";
+import SignUpForm from "../features/autentication/SignUpForm";
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -16,6 +18,7 @@ const StyledLoginPage = styled.div`
   width: 100vw;
   color: var(--color-white-100);
   background-color: var(--color-black-300);
+  overflow: scroll;
 
   ${(props) =>
     props.width < 567
@@ -31,18 +34,21 @@ const MainBlock = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: var(--color-black-200);
   width: 70%;
   height: 80%;
   box-shadow: 8px 8px 25px 0px black;
-  padding: 1rem;
+  padding: 4rem 1rem;
+  overflow: hidden;
 
   ${(props) =>
     props.width > 992 &&
     css`
       flex-direction: row;
+      justify-content: flex-start;
+      padding-left: 6rem;
     `}
 `;
 
@@ -80,7 +86,7 @@ const CircleOne = styled(motion.div)`
 
 const TextContainer = styled.div`
   position: relative;
-  padding-right: 1rem;
+  padding-right: 3rem;
   margin-top: 4rem;
   z-index: 1;
 `;
@@ -102,16 +108,20 @@ const LogoText = styled.span`
 `;
 
 function Login() {
+  const [showRegister, setRegister] = useState(false);
   const userWidth = useUserWidth();
   const ref = useRef(null);
   const navigate = useNavigate();
   const { user, isAuthenticated } = useUser();
 
+  function handleRegisterButton() {
+    setRegister((s) => !s);
+  }
+
   useEffect(() => {
     function chechAuth() {
       if (isAuthenticated) {
         navigate("/dashboard");
-        console.log(user);
       }
     }
     chechAuth();
@@ -121,7 +131,12 @@ function Login() {
     return (
       <StyledLoginPage>
         <Logo />
-        <LoginForm />
+        <SignUpForm showRegister={showRegister} />
+        <LoginForm showRegister={showRegister} />
+        <SignUpButton
+          showRegister={showRegister}
+          onRegisterButton={handleRegisterButton}
+        />
       </StyledLoginPage>
     );
 
@@ -135,7 +150,12 @@ function Login() {
               Wallet<Purple>Wise</Purple>
             </LogoText>
           </div>
-          <LoginForm />
+          <SignUpForm showRegister={showRegister} />
+          <LoginForm showRegister={showRegister} />
+            <SignUpButton
+              showRegister={showRegister}
+              onRegisterButton={handleRegisterButton}
+            />
         </MainBlock>
       </StyledLoginPage>
     );
@@ -187,7 +207,7 @@ function Login() {
           size="40px"
           deg="90deg"
           top="70%"
-          left="45%"
+          left="85%"
           drag
           whileDrag={{ scale: 1.2 }}
           dragConstraints={ref}
@@ -220,9 +240,13 @@ function Login() {
             seamless online payments, easily convert currencies, and transfer
             money swiftly to other users accounts.{" "}
           </TextContainer>
+          <SignUpButton
+            showRegister={showRegister}
+            onRegisterButton={handleRegisterButton}
+          />
         </HelperDiv>
-
-        <LoginForm />
+        <SignUpForm showRegister={showRegister} />
+        <LoginForm showRegister={showRegister} />
       </MainBlock>
     </StyledLoginPage>
   );
