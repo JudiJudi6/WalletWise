@@ -8,6 +8,8 @@ import { BsFillPersonFill, BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import { sub, formatDistanceToNow, format, parse } from "date-fns";
+import { useSignUp } from "./useSignUp";
+import { useNavigate } from "react-router-dom";
 
 const StyledSignUpForm = styled(motion.form)`
   display: flex;
@@ -42,6 +44,8 @@ const Input = styled(motion.input)`
 
 function SignUpForm({ showRegister }) {
   const userWidth = useUserWidth();
+  const { signUp, isLoading } = useSignUp();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -77,8 +81,7 @@ function SignUpForm({ showRegister }) {
   }
 
   function onSubmit({ email, password, fullName, nickName, birthDate, pesel }) {
-    console.log("dupa");
-    console.log(email, password, fullName, nickName, birthDate, pesel);
+    signUp({ email, password, fullName, nickName, birthDate, pesel });
   }
 
   return (
@@ -107,6 +110,7 @@ function SignUpForm({ showRegister }) {
               message: "Please provide a vailid email address",
             },
           })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox icon={<AiOutlineLock />} errors={errors?.password?.message}>
@@ -123,6 +127,7 @@ function SignUpForm({ showRegister }) {
               message: "Password needs a minimum of 8 characters",
             },
           })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox
@@ -140,6 +145,7 @@ function SignUpForm({ showRegister }) {
             validate: (value) =>
               getValues().password === value || "Passwords need to match",
           })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox icon={<BsFillPersonFill />} errors={errors?.fullName?.message}>
@@ -156,6 +162,7 @@ function SignUpForm({ showRegister }) {
               message: "This field need name and surname",
             },
           })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox
@@ -169,6 +176,7 @@ function SignUpForm({ showRegister }) {
           onFocus={handleAddFocus}
           onBlur={handleRemoveFocus}
           {...register("nickName", { required: "This field is required" })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox errors={errors?.birthDate?.message}>
@@ -191,6 +199,7 @@ function SignUpForm({ showRegister }) {
               );
             },
           })}
+          disabled={isLoading}
         />
       </InputBox>
       <InputBox icon={<MdNumbers />} errors={errors?.pesel?.message}>
@@ -205,11 +214,10 @@ function SignUpForm({ showRegister }) {
             validate: (value) =>
               value.length === 11 || "Pesel must have 11 numbers",
           })}
+          disabled={isLoading}
         />
       </InputBox>
-      <Button type="submit" onClick={onSubmit}>
-        Sign in
-      </Button>
+      <Button disabled={isLoading}>Sign in</Button>
     </StyledSignUpForm>
   );
 }

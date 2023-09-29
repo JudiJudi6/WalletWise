@@ -1,6 +1,13 @@
 import supabase from "./supabase";
 
-export async function signUp({ fullName, email, password, nickName, pesel }) {
+export async function signUp({
+  email,
+  password,
+  fullName,
+  nickName,
+  birthDate,
+  pesel,
+}) {
   let userData;
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -12,23 +19,36 @@ export async function signUp({ fullName, email, password, nickName, pesel }) {
 
     const { data: userTableData, error: userTableError } = await supabase
       .from("profileData")
-      .insert([{ userID, fullName, email, nickName, pesel }]);
+      .insert([{ userID, fullName, nickName, pesel, birthDate }])
+      .select();
 
-    if (userTableError) throw new Error(error.message);
+    if (userTableError) throw new Error(userTableError.message);
     userData = userTableData;
-  } else throw new Error(error.message);
-
+  } else {
+    throw new Error(error.message);
+  }
   return { data, userData };
 }
 
 export async function login({ password, email }) {
-  let { data, error } = await supabase.auth.signInWithPassword({
+  let profileData;
+  let { data: user, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+  if (!error) {
+    const userID = user.user.id;
+    let { data: profileDataApi, error } = await supabase
+      .from("profileData")
+      .select("*")
+      .eq("userID", userID);
+    if (error) throw new Error(error.message);
+    profileData = profileDataApi;
+  } else {
+    throw new Error(error.message);
+  }
 
-  if (error) throw new Error(error.message);
-  return data;
+  return { user, profileData };
 }
 
 export async function getCurrentUser() {
@@ -38,7 +58,20 @@ export async function getCurrentUser() {
 
   const { data, error } = await supabase.auth.getUser();
   if (error) throw new Error(error.message);
+
   return data?.user;
+}
+
+export async function getCurrentProfileData(id) {
+  if(!id) return {}
+  let { data: profileData, error } = await supabase
+    .from("profileData")
+    .select("*")
+    .eq("userID", id);
+
+  if (error) throw new Error(error.message);
+
+  return profileData;
 }
 
 export async function logOut() {

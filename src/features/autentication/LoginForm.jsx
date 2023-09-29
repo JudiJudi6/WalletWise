@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { AiOutlineLock, AiOutlineMail } from "react-icons/ai";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Button from "../../ui/Button";
 import InputBox from "../../ui/InputBox";
 import { useForm } from "react-hook-form";
