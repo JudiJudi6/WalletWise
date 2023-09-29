@@ -7,7 +7,7 @@ import { MdNumbers } from "react-icons/md";
 import { BsFillPersonFill, BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
-import {sub, formatDistanceToNow} from 'date-fns'
+import { sub, formatDistanceToNow, format, parse } from "date-fns";
 
 const StyledSignUpForm = styled(motion.form)`
   display: flex;
@@ -77,9 +77,6 @@ function SignUpForm({ showRegister }) {
   }
 
   function onSubmit({ email, password, fullName, nickName, birthDate, pesel }) {
-    const date = new Date(birthDate)
-    console.log(date)
-    console.log(formatDistanceToNow(date))
     console.log("dupa");
     console.log(email, password, fullName, nickName, birthDate, pesel);
   }
@@ -181,7 +178,19 @@ function SignUpForm({ showRegister }) {
           type="date"
           onFocus={handleAddFocus}
           onBlur={handleRemoveFocus}
-          {...register("birthDate", { required: "This field is required"})}
+          {...register("birthDate", {
+            required: "This field is required",
+            validate: (value) => {
+              const eighteenYearsAgo = new Date();
+              eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+              const selectedDate = new Date(value);
+
+              return (
+                selectedDate <= eighteenYearsAgo || "You must be 18 years old"
+              );
+            },
+          })}
         />
       </InputBox>
       <InputBox icon={<MdNumbers />} errors={errors?.pesel?.message}>
@@ -191,7 +200,11 @@ function SignUpForm({ showRegister }) {
           type="number"
           onFocus={handleAddFocus}
           onBlur={handleRemoveFocus}
-          {...register("pesel", { required: "This field is required", validate: value => value.length === 11 || "Pesel must have 11 numbers" })}
+          {...register("pesel", {
+            required: "This field is required",
+            validate: (value) =>
+              value.length === 11 || "Pesel must have 11 numbers",
+          })}
         />
       </InputBox>
       <Button type="submit" onClick={onSubmit}>
