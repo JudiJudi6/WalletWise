@@ -7,9 +7,9 @@ import { MdNumbers } from "react-icons/md";
 import { BsFillPersonFill, BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
-import { sub, formatDistanceToNow, format, parse } from "date-fns";
 import { useSignUp } from "./useSignUp";
 import { useNavigate } from "react-router-dom";
+import supabase from "../../services/supabase";
 
 const StyledSignUpForm = styled(motion.form)`
   display: flex;
@@ -45,7 +45,6 @@ const Input = styled(motion.input)`
 function SignUpForm({ showRegister }) {
   const userWidth = useUserWidth();
   const { signUp, isLoading } = useSignUp();
-  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -175,7 +174,20 @@ function SignUpForm({ showRegister }) {
           type="text"
           onFocus={handleAddFocus}
           onBlur={handleRemoveFocus}
-          {...register("nickName", { required: "This field is required" })}
+          {...register("nickName", {
+            required: "This field is required",
+            validate: async (value) => {
+              let { data: nickName, error } = await supabase
+                .from("profileData")
+                .select('nickName')
+                .eq("nickName", value);
+              if (error) throw new Error(error.message);
+              console.log(nickName)
+              return (
+                (nickName !== null && nickName.length === 0) || 'Nick Name is alreeay taken' 
+              )
+            },
+          })}
           disabled={isLoading}
         />
       </InputBox>

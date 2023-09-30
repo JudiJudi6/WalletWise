@@ -63,7 +63,7 @@ export async function getCurrentUser() {
 }
 
 export async function getCurrentProfileData(id) {
-  if(!id) return {}
+  if (!id) return {};
   let { data: profileData, error } = await supabase
     .from("profileData")
     .select("*")
@@ -77,4 +77,14 @@ export async function getCurrentProfileData(id) {
 export async function logOut() {
   let { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
+}
+
+export async function getUsersNickNames() {
+  let { data: nickNames, error } = await supabase
+    .from("profileData")
+    .select("nickName");
+
+    if (error) throw new Error(error.message);
+
+    return nickNames
 }
