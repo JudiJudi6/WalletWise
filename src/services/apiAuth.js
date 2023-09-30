@@ -31,47 +31,40 @@ export async function signUp({
 }
 
 export async function login({ password, email }) {
-  let profileData;
   let { data: user, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
-  if (!error) {
-    const userID = user.user.id;
-    let { data: profileDataApi, error } = await supabase
-      .from("profileData")
-      .select("*")
-      .eq("userID", userID);
-    if (error) throw new Error(error.message);
-    profileData = profileDataApi;
-  } else {
-    throw new Error(error.message);
-  }
+  if(error) throw new Error(error.message);
 
-  return { user, profileData };
+  return { user };
 }
 
 export async function getCurrentUser() {
+  let profileData;
+  let user
   const { data: session } = await supabase.auth.getSession();
 
   if (!session.session) return null;
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error) throw new Error(error.message);
+  const { data: userApi, error: errorUser } = await supabase.auth.getUser();
+  if (errorUser) throw new Error(errorUser.message);
 
-  return data?.user;
-}
+  if (!errorUser) {
+    const id = userApi.user.id;
 
-export async function getCurrentProfileData(id) {
-  if (!id) return {};
-  let { data: profileData, error } = await supabase
-    .from("profileData")
-    .select("*")
-    .eq("userID", id);
+    let { data: profileDataApi, error: errorProfileData } = await supabase
+      .from("profileData")
+      .select("*")
+      .eq("userID", id);
+      if (errorProfileData) throw new Error(errorProfileData.message);
+      profileData = profileDataApi;
+  }
 
-  if (error) throw new Error(error.message);
+  user = userApi.user
+  profileData = profileData.at(0)
 
-  return profileData;
+  return {user, profileData};
 }
 
 export async function logOut() {
@@ -84,7 +77,7 @@ export async function getUsersNickNames() {
     .from("profileData")
     .select("nickName");
 
-    if (error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
-    return nickNames
+  return nickNames;
 }

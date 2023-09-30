@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { useUserWidth } from "../hooks/useUserWidth";
 import BurgerMenu from "./BurgerMenu";
+import HeaderAccountButton from "./HeaderAccountButton";
+import HeaderAccountName from "./HeaderAccountName";
 // import SideTitle from "./SideTitle";
 
 const StyledHeader = styled.div`
@@ -20,6 +22,7 @@ const StyledHeader = styled.div`
 
 const HelperDiv = styled.div`
   display: flex;
+  align-items: center;
   gap: 2.4rem;
 `;
 
@@ -30,8 +33,8 @@ function Header() {
     <StyledHeader width={userWidth}>
       {userWidth < 567 && <BurgerMenu/>}
       <HelperDiv>
-        <p>header</p>
-        <p>avatar</p>
+        <HeaderAccountName/>
+        <HeaderAccountButton/>
       </HelperDiv>
     </StyledHeader>
   );

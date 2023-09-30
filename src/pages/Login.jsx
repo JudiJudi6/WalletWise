@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/autentication/useUser";
 import SignUpButton from "../features/autentication/SignUpButton";
 import SignUpForm from "../features/autentication/SignUpForm";
+import { useQueryClient } from "@tanstack/react-query";
+import Spinner from "../ui/Spinner";
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -107,25 +109,38 @@ const LogoText = styled.span`
   font-size: 3.8rem;
 `;
 
+const FullPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-black-300);
+`;
+
 function Login() {
   const [showRegister, setRegister] = useState(false);
   const userWidth = useUserWidth();
   const ref = useRef(null);
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useUser();
+  const { isAuthenticated, isLoading } = useUser();
 
   function handleRegisterButton() {
     setRegister((s) => !s);
   }
 
   useEffect(() => {
-    function chechAuth() {
-      if (isAuthenticated) {
-        navigate("/dashboard");
-      }
+    if (isAuthenticated === "authenticated" && !isLoading) {
+      navigate("/dashboard");
     }
-    chechAuth();
-  }, [isAuthenticated, navigate, user]);
+  }, [navigate, isAuthenticated, isLoading]);
+
+  if (isLoading)
+    return (
+      <FullPage>
+        <Spinner />
+      </FullPage>
+    );
 
   if (userWidth < 567)
     return (
@@ -152,10 +167,10 @@ function Login() {
           </div>
           <SignUpForm showRegister={showRegister} />
           <LoginForm showRegister={showRegister} />
-            <SignUpButton
-              showRegister={showRegister}
-              onRegisterButton={handleRegisterButton}
-            />
+          <SignUpButton
+            showRegister={showRegister}
+            onRegisterButton={handleRegisterButton}
+          />
         </MainBlock>
       </StyledLoginPage>
     );

@@ -8,7 +8,6 @@ import { BsFillPersonFill, BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import { useSignUp } from "./useSignUp";
-import { useNavigate } from "react-router-dom";
 import supabase from "../../services/supabase";
 
 const StyledSignUpForm = styled(motion.form)`

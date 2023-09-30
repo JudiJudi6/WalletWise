@@ -1,16 +1,30 @@
-import { useCurrentUser } from "./useCurrentUser";
-import { useProfileData } from "./useProfileData";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useCurrentUser } from "./useCurrentUser";
+// import { useProfileData } from "./useProfileData";
+import { getCurrentUser } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function useUser() {
-  const { user, isLoadingUser, id } = useCurrentUser();
-  const { profileData, isLoadingProfileData } = useProfileData(id);
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  
+  const { data, isLoading } = useQuery({
+    queryFn: getCurrentUser,
+    queryKey: ['data']
+  });
 
-  const isLoading = isLoadingUser || isLoadingProfileData;
+  return {data, isLoading, isAuthenticated: data?.user?.role};
 
-  return {
-    user,
-    profileData,
-    isLoading,
-    isAuthenticated: user?.role === "authenticated",
-  };
+  // const { user, isLoadingUser, id } = useCurrentUser();
+  // const { profileData, isLoadingProfileData } = useProfileData(id);
+
+  // const isLoading = isLoadingUser || isLoadingProfileData;
+
+  // return {
+  //   user,
+  //   profileData,
+  //   isLoading,
+  //   isAuthenticated: user?.role === "authenticated",
+  // };
 }
