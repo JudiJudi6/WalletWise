@@ -3,9 +3,11 @@ import { useUserWidth } from "../hooks/useUserWidth";
 import BurgerMenu from "./BurgerMenu";
 import HeaderAccountButton from "./HeaderAccountButton";
 import HeaderAccountName from "./HeaderAccountName";
+import HeaderAccountBalane from "./HeaderAccountBalane";
 // import SideTitle from "./SideTitle";
 
 const StyledHeader = styled.div`
+  /* width: 100%; */
   background-color: var(--color-black-300);
   padding: 1.2rem 1.8rem;
   display: flex;
@@ -23,7 +25,15 @@ const StyledHeader = styled.div`
 const HelperDiv = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 2.4rem;
+`;
+
+const HelperHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 function Header() {
@@ -31,11 +41,14 @@ function Header() {
 
   return (
     <StyledHeader width={userWidth}>
-      {userWidth < 567 && <BurgerMenu/>}
-      <HelperDiv>
-        <HeaderAccountName/>
-        <HeaderAccountButton/>
-      </HelperDiv>
+      {userWidth < 567 && <BurgerMenu />}
+      <HelperHeader>
+        <HeaderAccountBalane />
+        <HelperDiv>
+          <HeaderAccountName />
+          <HeaderAccountButton />
+        </HelperDiv>
+      </HelperHeader>
     </StyledHeader>
   );
 }
