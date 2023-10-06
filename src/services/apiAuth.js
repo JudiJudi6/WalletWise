@@ -99,8 +99,5 @@ export async function getUsersNickNames(nick) {
 
   if (error) throw error.message;
 
-  // console.log(data.length > 0)
-  console.log(data === null)
-
-  return data; // true if nick is used
+  return data;
 }

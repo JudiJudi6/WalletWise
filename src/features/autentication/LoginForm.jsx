@@ -6,7 +6,6 @@ import InputBox from "../../ui/InputBox";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
 import { useUserWidth } from "../../hooks/useUserWidth";
-import { useNavigate } from "react-router-dom";
 
 const StyledLoginForm = styled(motion.form)`
   position: ${(props) => (props.width < 992 ? "relative" : "absolute")};
@@ -42,7 +41,6 @@ const Input = styled(motion.input)`
 function LoginForm({ showRegister }) {
   const { login, isLoading } = useLogin();
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate()
   const userWidth = useUserWidth();
 
   const formVariants = {
