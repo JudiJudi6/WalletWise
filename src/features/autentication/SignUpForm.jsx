@@ -9,6 +9,7 @@ import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import { useSignUp } from "./useSignUp";
 import supabase from "../../services/supabase";
+import { getUsersNickNames } from "../../services/apiAuth";
 
 const StyledSignUpForm = styled(motion.form)`
   display: flex;
@@ -156,7 +157,7 @@ function SignUpForm({ showRegister }) {
           {...register("fullName", {
             required: "This field is required",
             pattern: {
-              value: /^\w+\s\w+$/,
+              value: /^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+$/,
               message: "This field need name and surname",
             },
           })}
@@ -176,15 +177,8 @@ function SignUpForm({ showRegister }) {
           {...register("nickName", {
             required: "This field is required",
             validate: async (value) => {
-              let { data: nickName, error } = await supabase
-                .from("profileData")
-                .select('nickName')
-                .eq("nickName", value);
-              if (error) throw new Error(error.message);
-              console.log(nickName)
-              return (
-                (nickName !== null && nickName.length === 0) || 'Nick Name is alreeay taken' 
-              )
+              const result = await getUsersNickNames(value)
+              return result.length === 0 || "Nick is already used";
             },
           })}
           disabled={isLoading}

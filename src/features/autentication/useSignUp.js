@@ -9,8 +9,9 @@ export function useSignUp() {
   const { mutate: signUp, isLoading } = useMutation({
     mutationFn: signUpApi,
     onSuccess: (data) => {
+      console.log(data)
       navigate("/dashboard", { replace: true });
-      queryClient.setQueryData(['user'], data.user)
+      queryClient.setQueryData(['user'], data)
     },
   });
 

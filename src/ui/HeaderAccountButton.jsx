@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -13,6 +14,8 @@ const StyledButton = styled(motion.button)`
 `
 
 function HeaderAccountButton() {
+    const queryClient = useQueryClient()
+    const user = queryClient.getQueryData(['user']).user_metadata
     const navigate = useNavigate()
 
     return (

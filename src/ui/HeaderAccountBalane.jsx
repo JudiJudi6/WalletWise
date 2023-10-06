@@ -3,9 +3,9 @@ import { formatCurrency } from "../utils/helpers"
 
 function HeaderAccountBalane() {
     const queryClient = useQueryClient()
-    const user = queryClient.getQueryData(['user'])
+    const user = queryClient.getQueryData(['user']).user.user_metadata
 
-    return <p>Balance:</p>
+    return <p>Balance: {formatCurrency(user.balance)}</p>
 }
 
 export default HeaderAccountBalane

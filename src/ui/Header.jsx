@@ -32,7 +32,7 @@ const HelperDiv = styled.div`
 const HelperHeader = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${props => props.width > 567 ? 'space-between' : 'flex-end'};
   align-items: center;
 `;
 
@@ -42,8 +42,8 @@ function Header() {
   return (
     <StyledHeader width={userWidth}>
       {userWidth < 567 && <BurgerMenu />}
-      <HelperHeader>
-        <HeaderAccountBalane />
+      <HelperHeader width={userWidth}>
+        {userWidth > 567 && <HeaderAccountBalane />}
         <HelperDiv>
           <HeaderAccountName />
           <HeaderAccountButton />
