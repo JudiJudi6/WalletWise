@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/autentication/useUser";
 import SignUpButton from "../features/autentication/SignUpButton";
 import SignUpForm from "../features/autentication/SignUpForm";
-import { useQueryClient } from "@tanstack/react-query";
 import Spinner from "../ui/Spinner";
 
 const StyledLoginPage = styled.div`

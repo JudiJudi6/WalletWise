@@ -2,10 +2,9 @@ import { useQueryClient } from "@tanstack/react-query";
 
 function HeaderAccountName() {
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(["data"]);
-  const profileData = data.profileData;
+  const user = queryClient.getQueryData(["user"]);
 
-  return <p>{profileData.nickName}</p>;
+  return <p>dsa</p>;
 }
 
 export default HeaderAccountName;
