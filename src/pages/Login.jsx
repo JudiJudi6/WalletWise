@@ -10,6 +10,7 @@ import { useUser } from "../features/autentication/useUser";
 import SignUpButton from "../features/autentication/SignUpButton";
 import SignUpForm from "../features/autentication/SignUpForm";
 import Spinner from "../ui/Spinner";
+import ColorText from "../ui/ColotText";
 
 const StyledLoginPage = styled.div`
   display: flex;
@@ -90,14 +91,6 @@ const TextContainer = styled.div`
   padding-right: 3rem;
   margin-top: 4rem;
   z-index: 1;
-`;
-
-const ColorText = styled.span`
-  font-size: 2.2rem;
-  background: linear-gradient(90deg, var(--color-pink), var(--color-purple));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 `;
 
 const Purple = styled.span`
@@ -245,7 +238,7 @@ function Login() {
             </LogoText>
           </div>
           <TextContainer>
-            <ColorText>
+            <ColorText size="2.2rem">
               Join us on a journey of hassle-free and efficient banking!
             </ColorText>
           </TextContainer>

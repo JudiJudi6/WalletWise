@@ -26,7 +26,7 @@ const StyledAppLayout = styled.div`
 
 const Main = styled.main`
   background-color: var(--color-black-200);
-  padding: 5rem;
+  padding: 3rem;
   overflow: scroll;
   box-shadow: 10px 10px 8px -10px black inset;
   height: 100%;
