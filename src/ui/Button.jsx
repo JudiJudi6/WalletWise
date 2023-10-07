@@ -29,16 +29,31 @@ const variations = {
     &:hover {
       background-color: var(--color-purple);
     }
+
+    &:focus {
+      outline: none;
+      background-color: var(--color-purple);
+      scale: 1.05;
+      transition: scale 0.3s;
+    }
   `,
 
-  //   danger: css`
-  //     color: var(--color-red-100);
-  //     background-color: var(--color-red-700);
+  danger: css`
+    color: var(--color-error);
+    background-color: transparent;
+    border: 2px solid var(--color-error);
 
-  //     &:hover {
-  //       background-color: var(--color-red-800);
-  //     }
-  //   `,
+    &:hover {
+      background-color: var(--color-black-200);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: var(--color-black-200);
+      scale: 1.05;
+      transition: scale 0.3s;
+    }
+  `,
 };
 
 const Button = styled(motion.button)`
@@ -49,14 +64,12 @@ const Button = styled(motion.button)`
   box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
-
-  &:focus{
+  ${(props) => variations[props.variation]} /* &:focus {
     outline: none;
     background-color: var(--color-purple);
     scale: 1.05;
-    transition: scale .3s
-  }
+    transition: scale 0.3s;
+  } */
 `;
 
 Button.defaultProps = {

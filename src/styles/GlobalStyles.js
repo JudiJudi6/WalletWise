@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
   --color-purple: #9d70ee;
   --color-helper: #334356;
   --color-error: #d20700;
+  --color-error-dark: #b01000;
 
   
   --color-dark-blue: #2e294e;

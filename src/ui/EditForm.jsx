@@ -39,10 +39,18 @@ const StyledEditForm = styled.form`
 
 const HelperDiv = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
-  width: 60%;
+  ${(props) => (props.width < 687 ? "width: 60%" : "width: 100%")};
+`;
+
+const StyledButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  width: ${(props) => (props.width < 687 ? "100%" : "40%")};
 `;
 
 const EditBox = styled.div`
@@ -81,10 +89,7 @@ function EditForm() {
   }
 
   function onSubmit({ password, fullName, nickName, birthDate }) {
-    // currentNickName = nickName;
-    // console.log(password, fullName, nickName, birthDate, currentNickName);
-    console.log(password, fullName, nickName, birthDate, currentNickName);
-    updateUser({password, fullName, birthDate, nickName, currentNickName});
+    updateUser({ password, fullName, birthDate, nickName, currentNickName });
   }
 
   return (
@@ -155,6 +160,7 @@ function EditForm() {
             onBlur={handleRemoveFocus}
             disabled={isLoading}
             {...register("fullName", {
+              required: "This field is required",
               pattern: {
                 value: /^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+$/,
                 message: "This field need name and surname",
@@ -177,6 +183,7 @@ function EditForm() {
             onBlur={handleRemoveFocus}
             disabled={isLoading}
             {...register("nickName", {
+              required: "This field is required",
               validate: async (value) => {
                 if (value === currentNickName) return;
                 const result = await getUsersNickNames(value);
@@ -227,7 +234,10 @@ function EditForm() {
         </InputBox>
       </EditBox>
       <HelperDiv>
-        <Button disabled={isLoading}>Save changes</Button>
+        <StyledButtons width={width}>
+          <Button variation='danger' type="reset">Clear</Button>
+          <Button disabled={isLoading}>Save</Button>
+        </StyledButtons>
       </HelperDiv>
     </StyledEditForm>
   );

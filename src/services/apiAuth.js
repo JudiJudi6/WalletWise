@@ -111,9 +111,6 @@ export async function updateUser({
 }) {
   let updateData, userID;
 
-  console.log(fullName);
-  console.log(password, fullName, birthDate, nickName, currentNickName);
-
   if (!password) updateData = { data: { fullName, birthDate } };
   if (password && fullName && birthDate)
     updateData = { password, data: { fullName, birthDate } };
