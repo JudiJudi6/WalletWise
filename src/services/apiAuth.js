@@ -17,7 +17,7 @@ export async function signUp({
         fullName,
         pesel,
         birthDate,
-        avatar: "",
+        avatar: "https://pdselwjhhojvthszriij.supabase.co/storage/v1/object/sign/avatars/default-user.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2RlZmF1bHQtdXNlci5qcGciLCJpYXQiOjE2OTY3MTMyNzYsImV4cCI6ODY1Njk2NjI2ODc2fQ.GWyLDvr78ABiQdNeRdLsMRWO-_d9q3VyMznrT6hkKyo&t=2023-10-07T21%3A14%3A36.394Z",
         friends: [],
         balance: 50,
       },

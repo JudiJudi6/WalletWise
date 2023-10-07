@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { useUser } from "../features/autentication/useUser"
 
 const StyledButton = styled(motion.button)`
     width: 30px;
@@ -14,13 +15,12 @@ const StyledButton = styled(motion.button)`
 `
 
 function HeaderAccountButton() {
-    const queryClient = useQueryClient()
-    const user = queryClient.getQueryData(['user']).user_metadata
+    const {user} = useUser()
     const navigate = useNavigate()
 
     return (
         <StyledButton whileHover={{scale: 1.1}} whileFocus={{scale: 1.1}} onClick={()=>navigate('/account')}>
-            <img src="../../public/default-user.jpg" alt="user" />
+            <img src={user.user.user_metadata.avatar} alt={user.nickName} />
         </StyledButton>
     )
 }

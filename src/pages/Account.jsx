@@ -4,6 +4,7 @@ import ColorText from "../ui/ColotText";
 import { useUserWidth } from "../hooks/useUserWidth";
 import EditForm from "../ui/EditForm";
 import { useUser } from "../features/autentication/useUser";
+import EditAvatar from "../ui/EditAvatar";
 
 const Box = styled.div`
   display: flex;
@@ -38,7 +39,7 @@ const HelperDiv = styled.div`
 
 function Account() {
   const userWidth = useUserWidth();
-  const {user} = useUser()
+  const { user } = useUser();
 
   return (
     <StyledAccount>
@@ -52,7 +53,7 @@ function Account() {
           <div>here you can edit your profile details.</div>
         </Box>
         <Box>
-          <span>Edit your avatar:</span>
+          <EditAvatar />
         </Box>
       </HelperDiv>
       <EditForm />
