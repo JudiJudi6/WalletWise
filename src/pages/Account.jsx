@@ -1,12 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { styled } from "styled-components";
 import ColorText from "../ui/ColotText";
-import SignUpForm from "../features/autentication/SignUpForm";
-import InputBox from "../ui/InputBox";
-import { AiOutlineMail } from "react-icons/ai";
-import Input from "../ui/Input";
 import { useUserWidth } from "../hooks/useUserWidth";
 import EditForm from "../ui/EditForm";
+import { useUser } from "../features/autentication/useUser";
 
 const Box = styled.div`
   display: flex;
@@ -41,8 +38,7 @@ const HelperDiv = styled.div`
 
 function Account() {
   const userWidth = useUserWidth();
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]).nickName;
+  const {user} = useUser()
 
   return (
     <StyledAccount>
@@ -50,7 +46,7 @@ function Account() {
         <Box>
           <div>
             <span>
-              Hi, <ColorText size="1.7rem">{user}</ColorText>{" "}
+              Hi, <ColorText size="1.7rem">{user.nickName}</ColorText>{" "}
             </span>
           </div>
           <div>here you can edit your profile details.</div>

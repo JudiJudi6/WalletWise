@@ -1,10 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "../features/autentication/useUser";
 
 function HeaderAccountName() {
-  const queryClient = useQueryClient()
-  const user = queryClient.getQueryData(['user'])?.nickName
+  const {user} = useUser()
 
-  return <p>{user}</p>;
+  return <p>{user.nickName}</p>;
 }
 
 export default HeaderAccountName;
