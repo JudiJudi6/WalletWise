@@ -8,6 +8,9 @@ import { BsFillFileEarmarkPersonFill, BsFillPersonFill } from "react-icons/bs";
 import { getUsersNickNames } from "../services/apiAuth";
 import { MdNumbers } from "react-icons/md";
 import toast from "react-hot-toast";
+import Button from "./Button";
+import { useQueryClient } from "@tanstack/react-query";
+import { useUpdateUser } from "../features/autentication/useUpdateUser";
 
 const Input = styled(motion.input)`
   height: 30px;
@@ -34,6 +37,14 @@ const StyledEditForm = styled.form`
   border-radius: 8px;
 `;
 
+const HelperDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2rem;
+  width: 60%;
+`;
+
 const EditBox = styled.div`
   display: flex;
   justify-content: center;
@@ -44,6 +55,10 @@ const EditBox = styled.div`
 
 function EditForm() {
   const width = useUserWidth();
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData(["user"]);
+  let currentNickName = data.nickName;
+  const { updateUser, isLoading } = useUpdateUser();
   const {
     register,
     formState: { errors },
@@ -65,8 +80,11 @@ function EditForm() {
     icon.style.color = "var(--color-main)";
   }
 
-  function onSubmit({ email, password, fullName, nickName, birthDate, pesel }) {
-    console.log(email, password, fullName, nickName, birthDate, pesel);
+  function onSubmit({ password, fullName, nickName, birthDate }) {
+    // currentNickName = nickName;
+    // console.log(password, fullName, nickName, birthDate, currentNickName);
+    console.log(password, fullName, nickName, birthDate, currentNickName);
+    updateUser({password, fullName, birthDate, nickName, currentNickName});
   }
 
   return (
@@ -78,6 +96,7 @@ function EditForm() {
             id="email"
             placeholder="Email"
             type="text"
+            value={data.user.email}
             disabled
             onTapStart={() => {
               toast.error("You can not change email and pesel");
@@ -93,6 +112,7 @@ function EditForm() {
             type="password"
             onFocus={handleAddFocus}
             onBlur={handleRemoveFocus}
+            disabled={isLoading}
             {...register("password", {
               minLength: {
                 value: 8,
@@ -113,6 +133,7 @@ function EditForm() {
             type="password"
             onFocus={handleAddFocus}
             onBlur={handleRemoveFocus}
+            disabled={isLoading}
             {...register("passwordConfirm", {
               validate: (value) =>
                 getValues().password === value || "Passwords need to match",
@@ -129,8 +150,10 @@ function EditForm() {
             id="fullName"
             placeholder="Full name"
             type="text"
+            defaultValue={data.user.user_metadata.fullName}
             onFocus={handleAddFocus}
             onBlur={handleRemoveFocus}
+            disabled={isLoading}
             {...register("fullName", {
               pattern: {
                 value: /^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+$/,
@@ -147,13 +170,15 @@ function EditForm() {
         >
           <Input
             id="nickName"
-            placeholder="Nick Name "
+            placeholder="Nick name"
             type="text"
+            defaultValue={data.nickName}
             onFocus={handleAddFocus}
             onBlur={handleRemoveFocus}
+            disabled={isLoading}
             {...register("nickName", {
-              required: "This field is required",
               validate: async (value) => {
+                if (value === currentNickName) return;
                 const result = await getUsersNickNames(value);
                 return result.length === 0 || "Nick is already used";
               },
@@ -165,10 +190,11 @@ function EditForm() {
         <InputBox errors={errors?.birthDate?.message}>
           <Input
             id="birthDate"
-            placeholder="Birth date "
             type="date"
+            defaultValue={data.user.user_metadata.birthDate}
             onFocus={handleAddFocus}
             onBlur={handleRemoveFocus}
+            disabled={isLoading}
             {...register("birthDate", {
               validate: (value) => {
                 const eighteenYearsAgo = new Date();
@@ -192,6 +218,7 @@ function EditForm() {
             id="pesel"
             placeholder="Pesel"
             type="number"
+            value={data.user.user_metadata.pesel}
             disabled
             onTapStart={() => {
               toast.error("You can not change email and pesel");
@@ -199,6 +226,9 @@ function EditForm() {
           />
         </InputBox>
       </EditBox>
+      <HelperDiv>
+        <Button disabled={isLoading}>Save changes</Button>
+      </HelperDiv>
     </StyledEditForm>
   );
 }
