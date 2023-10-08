@@ -42,15 +42,6 @@ const Button = styled.button`
   &:hover {
     background-color: var(--color-black-100);
   }
-
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
-  }
 `;
 
 const ModalContext = createContext();

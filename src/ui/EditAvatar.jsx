@@ -22,7 +22,7 @@ const StyledImg = styled(motion.img)`
   cursor: pointer;
 `;
 
-const EditButton = styled.button`
+const EditButton = styled(motion.button)`
   border-radius: 50%;
 `;
 
