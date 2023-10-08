@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { FileDrop } from "react-file-drop";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
+import { useUpdateAvatar } from "../features/autentication/useUpdateAvatar";
+import { useQueryClient } from "@tanstack/react-query";
 // const StyledDropArea = styled.div`
 //   border: 2px solid var(--color-main);
 //   padding: 20px;
@@ -82,10 +84,18 @@ const Accept = styled.div`
 `;
 
 function ModalEditAvatar({ onCloseModal }) {
-  const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
-    onCloseModal()
-  }, [onCloseModal]);
+  const queryCilent = useQueryClient();
+  const user = queryCilent.getQueryData(["user"]);
+
+  const { updateAvatar, isUpdating } = useUpdateAvatar();
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+        let avatar = acceptedFiles.at(0)
+      updateAvatar({avatar, user});
+      onCloseModal();
+    },
+    [onCloseModal, user, updateAvatar]
+  );
   const {
     getRootProps,
     getInputProps,
