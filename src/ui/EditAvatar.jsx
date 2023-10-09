@@ -12,6 +12,12 @@ const StyledEditAvatar = styled.div`
 `;
 
 const StyledImg = styled(motion.img)`
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  `;
+
+const EditButton = styled(motion.button)`
   width: 80px;
   height: 80px;
   display: flex;
@@ -20,10 +26,6 @@ const StyledImg = styled(motion.img)`
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
-`;
-
-const EditButton = styled(motion.button)`
-  border-radius: 50%;
 `;
 
 function EditAvatar() {
