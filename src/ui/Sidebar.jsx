@@ -6,6 +6,7 @@ import Logout from "../features/autentication/Logout";
 import { IoIosStats } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { VscAccount } from "react-icons/vsc";
+import { FaArrowTrendUp } from "react-icons/fa6";
 
 const StyledSideBar = styled.aside`
   display: flex;
@@ -35,6 +36,7 @@ function Sidebar() {
       <HelperDiv>
         <NavButton to={"/dashboard"} icon={<RxDashboard />} name="Dashboard" />
         <NavButton to={"/stats"} icon={<IoIosStats />} name="Stats" />
+        <NavButton to={"/stock"} icon={<FaArrowTrendUp />} name="Stock" />
         <NavButton to={"/account"} icon={<VscAccount />} name="Account" />
       </HelperDiv>
       <Logout />

@@ -7,6 +7,7 @@ import { RxDashboard } from "react-icons/rx";
 import { IoIosStats } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
 import Logout from "../features/autentication/Logout";
+import { FaArrowTrendUp } from "react-icons/fa6";
 
 const StyledMobileNav = styled(motion.nav)`
   position: absolute;
@@ -77,6 +78,19 @@ function MobileNav({ onCloseNav, isOpen }) {
             to={"/stats"}
             icon={<IoIosStats />}
             name="Stats"
+            onClick={onCloseNav}
+          />
+        </motion.div>
+        <motion.div
+          animate={
+            isInView ? { x: [-50, 0], opacity: [0, 1] } : { x: 0, opacity: 0 }
+          }
+          transition={{ duration: 0.3, delay: 0.45 }}
+        >
+          <NavButton
+            to={"/stock"}
+            icon={<FaArrowTrendUp />}
+            name="Stock"
             onClick={onCloseNav}
           />
         </motion.div>

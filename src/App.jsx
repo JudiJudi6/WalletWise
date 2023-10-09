@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import ProtectedRoute from "./features/autentication/ProtectedRoute";
+import Stock from "./pages/Stock";
+import Stats from "./pages/Stats";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,7 +38,8 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="account" element={<Account />} />
-            <Route path="stats" element={<Account />} />
+            <Route path="stats" element={<Stats />} />
+            <Route path="stock" element={<Stock />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
