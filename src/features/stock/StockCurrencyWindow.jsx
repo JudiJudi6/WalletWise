@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import {BiLike, BiTrendingUp} from 'react-icons/bi'
 
 const StyledWindow = styled(motion.button)`
   display: flex;
@@ -22,14 +23,24 @@ width: 100%;
 `;
 
 function StockCurrencyWindow() {
+
+    const trendVariants ={
+        trendUp:{
+            color: 'var(--color-error)',
+        },
+        trendDown:{
+            color: 'var(--color-green)', //cza dodac
+        }
+    }
   return (
     <StyledWindow whileHover={{backgroundColor: 'var(--color-black-300-hover)'}}>
       <HelperRow>
         <span>PLN/USD</span>
-        <span>dodaj</span>
+        <span><BiLike/></span>
       </HelperRow>
       <HelperRow>
-        <span>PLN/USD</span>
+        <span style={trendVariants.trendUp}><BiTrendingUp/> -0.13(0.01%)</span>
+        <span style={trendVariants.trendUp}>4.21</span>
       </HelperRow>
     </StyledWindow>
   );
