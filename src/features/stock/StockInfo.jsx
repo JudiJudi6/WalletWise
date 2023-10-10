@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import ColorText from "./ColotText";
-import Text from "./Text";
-import Spinner from "./Spinner";
+import ColorText from "../../ui/ColotText";
+import Text from "../../ui/Text";
+import Spinner from "../../ui/Spinner";
 import { useState } from "react";
-import { useCurrenciesNames } from "../features/stock/useCurrenciesNames";
+import { useCurrenciesNames } from "./useCurrenciesNames";
 import { motion } from "framer-motion";
 
 const StyledStockInfo = styled.div`
@@ -18,23 +18,22 @@ const StyledStockInfo = styled.div`
 `;
 
 const StyledSelect = styled(motion.select)`
-    background-color: transparent;
-    padding: 5px;
-    border: none;
-    color: var(--color-main);
-    text-transform: uppercase;
-    border-radius: 8px;
-`
+  background-color: transparent;
+  padding: 5px;
+  border: none;
+  color: var(--color-main);
+  text-transform: uppercase;
+  border-radius: 8px;
+`;
 
 const StyledOption = styled(motion.option)`
-    background-color: var(--color-black-300);
-    border: none;
-    color: white;
-    text-transform: none; 
-`
+  background-color: var(--color-black-300);
+  border: none;
+  color: white;
+  text-transform: none;
+`;
 
-function StockInfo() {
-  const [defCurrency, setDefCurrency] = useState("USD");
+function StockInfo({defCurrency, setDefCurrency}) {
   const { data: currenciesNamesObj, isLoading } = useCurrenciesNames();
   let currenciesNames;
   if (!isLoading)

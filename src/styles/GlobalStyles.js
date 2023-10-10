@@ -8,8 +8,8 @@ const GlobalStyles = createGlobalStyle`
 
   --color-black-100: #252c37;
   --color-black-200: #1d2733;
-  --color-black-400: #1c1c1c;
   --color-black-300: #161d28;
+  --color-black-400: #1c1c1c;
   --color-black-500: #100f10;
 
   --color-main: #6561e7;
@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
   --color-helper: #334356;
   --color-error: #d20700;
   --color-error-dark: #b01000;
+  --color-black-300-hover: #1a222f;
 
   
   --color-dark-blue: #2e294e;

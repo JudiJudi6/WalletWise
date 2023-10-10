@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { useUser } from "../features/autentication/useUser";
+import { useUser } from "./useUser";
 import { motion } from "framer-motion";
-import Modal from "./Modal";
-import ModalEditAvatar from "./ModalEditAvatar";
+import Modal from "../../ui/Modal";
+import ModalEditAvatar from "../../ui/ModalEditAvatar";
 
 const StyledEditAvatar = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const StyledImg = styled(motion.img)`
   object-fit: cover;
   height: 100%;
   width: 100%;
-  `;
+`;
 
 const EditButton = styled(motion.button)`
   width: 80px;

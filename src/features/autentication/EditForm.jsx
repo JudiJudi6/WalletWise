@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import InputBox from "./InputBox";
+import InputBox from "../../ui/InputBox";
 import { AiOutlineLock, AiOutlineMail } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import { useUserWidth } from "../hooks/useUserWidth";
+import { useUserWidth } from "../../hooks/useUserWidth";
 import { motion } from "framer-motion";
 import { BsFillFileEarmarkPersonFill, BsFillPersonFill } from "react-icons/bs";
-import { getUsersNickNames } from "../services/apiAuth";
+import { getUsersNickNames } from "../../services/apiAuth";
 import { MdNumbers } from "react-icons/md";
 import toast from "react-hot-toast";
-import Button from "./Button";
+import Button from "../../ui/Button";
 import { useQueryClient } from "@tanstack/react-query";
-import { useUpdateUser } from "../features/autentication/useUpdateUser";
+import { useUpdateUser } from "./useUpdateUser";
 
 const Input = styled(motion.input)`
   height: 30px;
@@ -235,7 +235,9 @@ function EditForm() {
       </EditBox>
       <HelperDiv>
         <StyledButtons width={width}>
-          <Button variation='danger' type="reset">Clear</Button>
+          <Button variation="danger" type="reset">
+            Clear
+          </Button>
           <Button disabled={isLoading}>Save</Button>
         </StyledButtons>
       </HelperDiv>

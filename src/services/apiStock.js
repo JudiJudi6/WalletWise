@@ -1,17 +1,24 @@
-const API_HOST = 'https://api.frankfurter.app'
+const API_HOST = "https://api.frankfurter.app";
+import { subDays, format } from "date-fns";
 
-export async function fetchCurrencies(){
-    const res = await fetch(`${API_HOST}/2022-09-10..?from=USD&to=EUR`)
-    const data = await res.json()
+export async function fetchCurrenciesList(defCurrency) {
+  const today = new Date();
+  const lastResearch = format(subDays(today, 3), "yyyy-MM-dd");
+//   console.log(lastResearch);
+  const res = await fetch(`${API_HOST}/${lastResearch}..?from=${defCurrency}`);
+  const data = await res.json();
 
-    console.log(data)
+  const dates = Object.keys(data?.rates);
+  const secondLastKey = dates[dates.length - 2];
+//   console.log(secondLastKey);
+//   console.log(data);
 
-    return data
+  return {data, secondLastKey};
 }
 
-export async function fetchAllCurrenciesName(){
-    const res = await fetch(`${API_HOST}/currencies`)
-    const data = await res.json()
+export async function fetchAllCurrenciesName() {
+  const res = await fetch(`${API_HOST}/currencies`);
+  const data = await res.json();
 
-    return data
+  return data;
 }

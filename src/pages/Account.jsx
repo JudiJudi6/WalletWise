@@ -1,10 +1,9 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { styled } from "styled-components";
 import ColorText from "../ui/ColotText";
 import { useUserWidth } from "../hooks/useUserWidth";
-import EditForm from "../ui/EditForm";
+import EditForm from "../features/autentication/EditForm";
 import { useUser } from "../features/autentication/useUser";
-import EditAvatar from "../ui/EditAvatar";
+import EditAvatar from "../features/autentication/EditAvatar";
 
 const Box = styled.div`
   display: flex;

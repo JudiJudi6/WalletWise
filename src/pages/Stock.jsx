@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useCurrencies } from "../features/stock/useCurrencies";
-import StockInfo from "../ui/StockInfo";
+import StockInfo from "../features/stock/StockInfo";
+import StockCurrenciesWindows from "../features/stock/StockCurrenciesWindows";
+import { useState } from "react";
 
 const StyledStock = styled.div`
   display: flex;
@@ -12,10 +14,11 @@ const StyledStock = styled.div`
 `;
 
 function Stock() {
-  const { data } = useCurrencies();
+  const [defCurrency, setDefCurrency] = useState("USD");
   return (
     <StyledStock>
-      <StockInfo />
+      <StockInfo defCurrency={defCurrency} setDefCurrency={setDefCurrency}/>
+      <StockCurrenciesWindows defCurrency={defCurrency} />
     </StyledStock>
   );
 }
