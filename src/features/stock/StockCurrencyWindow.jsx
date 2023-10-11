@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { BiLike, BiTrendingUp } from "react-icons/bi";
-import { AiOutlinePushpin } from "react-icons/ai";
+import {  BiTrendingDown, BiTrendingUp } from "react-icons/bi";
 
 const StyledWindow = styled(motion.button)`
   display: flex;
@@ -11,9 +10,6 @@ const StyledWindow = styled(motion.button)`
   background-color: var(--color-black-300);
   border-radius: 8px;
   padding: 25px;
-  /* gap: 10px; */
-  /* width: 100%; */
-  /* min-width: 200px;  */
 `;
 
 const HelperRow = styled.div`
@@ -21,18 +17,6 @@ const HelperRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const StyledPinButton = styled(motion.button)`
-  padding: 5px;
-  background-color: transparent;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: var(--color-black-300);
-  }
 `;
 
 const StyledTrending = styled.span`
@@ -50,7 +34,6 @@ const StyledPrice = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-top: 20px; */
   font-size: 2.5rem;
 `;
 
@@ -70,13 +53,13 @@ const HelperRowPrice = styled.div`
   margin-top: 10px;
 `;
 
-function StockCurrencyWindow() {
+function StockCurrencyWindow({ windowName, today, yesteday, defCurrency }) {
   const trendVariants = {
-    trendUp: {
+    trendDown: {
       color: "var(--color-error)",
     },
-    trendDown: {
-      color: "var(--color-green)", //cza dodac
+    trendUp: {
+      color: "var(--color-green)",
     },
   };
   return (
@@ -85,22 +68,18 @@ function StockCurrencyWindow() {
     >
       <HelperRow>
         <WindowTitle>
-          <StyledImg src="USD.png" />
-          <span>PLN/USD</span>
+          <StyledImg src={`${windowName}.png`} />
+          <span>{windowName}/{defCurrency}</span>
         </WindowTitle>
-        <StyledTrending style={trendVariants.trendUp}>
-          -0.13(0.01%)
+        <StyledTrending style={today > yesteday ? trendVariants.trendUp : trendVariants.trendDown}>
+          {`${(today-yesteday).toFixed(4)}(${((today-yesteday)/yesteday*100).toFixed(2)}%)`}
         </StyledTrending>
       </HelperRow>
-      {/* <HelperRow> */}
-
-      {/* </HelperRow> */}
       <HelperRowPrice>
         <span>Buy/Sell</span>
-        <BiTrendingUp style={trendVariants.trendUp}/> 
-        <StyledPrice>4.23</StyledPrice>
+        {today > yesteday ? <BiTrendingUp style={trendVariants.trendUp} /> : <BiTrendingDown style={trendVariants.trendDown} /> }
+        <StyledPrice>{today.toFixed(4)}</StyledPrice>
       </HelperRowPrice>
-      {/* <StyledPrice>Buy/Sell: 4.21</StyledPrice> */}
     </StyledWindow>
   );
 }

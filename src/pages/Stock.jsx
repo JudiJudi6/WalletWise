@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useCurrencies } from "../features/stock/useCurrencies";
 import StockInfo from "../features/stock/StockInfo";
 import StockCurrenciesWindows from "../features/stock/StockCurrenciesWindows";
 import { useState } from "react";

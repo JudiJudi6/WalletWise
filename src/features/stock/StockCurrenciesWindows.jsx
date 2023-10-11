@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useCurrencies } from "./useCurrencies";
 import StockCurrencyWindow from "./StockCurrencyWindow";
+import { format } from "date-fns";
+import Spinner from "../../ui/Spinner";
 
 const StyledStockCurrenciesWindows = styled.div`
   width: 100%;
@@ -9,32 +11,44 @@ const StyledStockCurrenciesWindows = styled.div`
   gap: 1rem;
   padding: 10px 0;
 
-  @media(min-width: 400px){
-    grid-template-columns: 1fr;
-  }
-
-  @media(min-width: 811px){
+  @media (min-width: 740) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media(min-width: 992px){
-    grid-template-columns: 1fr 1fr 1fr ;
+  @media (min-width: 811px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 
 function StockCurrenciesWindows({ defCurrency }) {
   const { data, isLoading } = useCurrencies(defCurrency);
+  const todayDate = format(new Date(), "yyyy-MM-dd");
 
-  console.log(data);
+  if (isLoading) return <Spinner />;
+
+  const rates = data.data.rates;
+  const yesteday = rates[data.secondLastKey];
+  const today = rates[todayDate];
+  const currenciesArray = Object.entries(today).map(([key, value]) => ({
+    key,
+    value,
+  }));
 
   return (
     <StyledStockCurrenciesWindows>
-      <StockCurrencyWindow />
-      <StockCurrencyWindow />
-      <StockCurrencyWindow />
-      <StockCurrencyWindow />
-      <StockCurrencyWindow />
-      <StockCurrencyWindow />
+      {currenciesArray.map((currency) => (
+        <StockCurrencyWindow
+          key={currency.key}
+          windowName={currency.key}
+          today={1 / today[currency.key]}
+          yesteday={1 / yesteday[currency.key]}
+          defCurrency={defCurrency}
+        />
+      ))}
     </StyledStockCurrenciesWindows>
   );
 }

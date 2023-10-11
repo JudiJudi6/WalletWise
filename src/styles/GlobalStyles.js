@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
   --color-purple: #9d70ee;
   --color-helper: #334356;
   --color-error: #d20700;
+  --color-green: #33ff00;
   --color-error-dark: #b01000;
   --color-black-300-hover: #1a222f;
 

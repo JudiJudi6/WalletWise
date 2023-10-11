@@ -10,14 +10,6 @@ export function useCurrencies(defCurrency) {
   useEffect(function(){
     refetch()
   },[defCurrency, refetch])
-
-  // if(!isLoading){
-
-  //   const dates = Object.keys(data?.rates)
-  //   const secondLastKey = dates[dates.length - 2] 
-  //   console.log(secondLastKey) 
-  // }
-
   
   return { data, isLoading };
 }
