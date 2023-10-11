@@ -10,15 +10,15 @@ const StyledStockCurrenciesWindows = styled.div`
   padding: 10px 0;
 
   @media(min-width: 400px){
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   @media(min-width: 811px){
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   @media(min-width: 992px){
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr ;
   }
 `;
 
