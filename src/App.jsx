@@ -11,6 +11,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import ProtectedRoute from "./features/autentication/ProtectedRoute";
 import Stock from "./pages/Stock";
 import Stats from "./pages/Stats";
+import Currency from "./features/stock/Currency";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,7 @@ function App() {
             <Route path="account" element={<Account />} />
             <Route path="stats" element={<Stats />} />
             <Route path="stock" element={<Stock />} />
+            <Route path="stock/:currencyID" element={<Currency />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />

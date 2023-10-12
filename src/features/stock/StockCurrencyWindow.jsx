@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import {  BiTrendingDown, BiTrendingUp } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
-const StyledWindow = styled(motion.button)`
+const StyledWindow = styled(motion(Link))`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +65,8 @@ function StockCurrencyWindow({ windowName, today, yesteday, defCurrency }) {
   };
   return (
     <StyledWindow
-      whileHover={{ backgroundColor: "var(--color-black-300-hover)" }}
+          to={`${windowName}`}
+          whileHover={{ backgroundColor: "var(--color-black-300-hover)" }}
     >
       <HelperRow>
         <WindowTitle>
