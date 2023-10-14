@@ -4,16 +4,17 @@ import { subDays, format } from "date-fns";
 export async function fetchCurrenciesList(defCurrency) {
   const today = new Date();
   const lastResearch = format(subDays(today, 3), "yyyy-MM-dd");
-//   console.log(lastResearch);
+  //   console.log(lastResearch);
   const res = await fetch(`${API_HOST}/${lastResearch}..?from=${defCurrency}`);
   const data = await res.json();
 
   const dates = Object.keys(data?.rates);
   const secondLastKey = dates[dates.length - 2];
-//   console.log(secondLastKey);
-//   console.log(data);
+  const todayKey = dates[dates.length - 1];
+  //   console.log(secondLastKey);
+  //   console.log(data);
 
-  return {data, secondLastKey};
+  return { data, secondLastKey, todayKey };
 }
 
 export async function fetchAllCurrenciesName() {

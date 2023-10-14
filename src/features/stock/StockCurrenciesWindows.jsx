@@ -24,15 +24,15 @@ const StyledStockCurrenciesWindows = styled.div`
   }
 `;
 
-function StockCurrenciesWindows({ defCurrency }) {
-  const { data, isLoading } = useCurrencies(defCurrency);
-  const todayDate = format(new Date(), "yyyy-MM-dd");
+function StockCurrenciesWindows({ defCurrency = 'USD' }) {
+  const { data, isLoading } = useCurrencies();
 
   if (isLoading) return <Spinner />;
+  console.log(data)
 
   const rates = data.data.rates;
   const yesteday = rates[data.secondLastKey];
-  const today = rates[todayDate];
+  const today = rates[data.todayKey];
   const currenciesArray = Object.entries(today).map(([key, value]) => ({
     key,
     value,
