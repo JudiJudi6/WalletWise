@@ -23,3 +23,22 @@ export async function fetchAllCurrenciesName() {
 
   return data;
 }
+
+export async function fetchCurrencyDetails(defCurrency, days, currency) {
+  const today = new Date();
+  let range;
+  if (days === "all") {
+    range = "1999-01-04";
+  } else {
+    range = format(subDays(today, days), "yyyy-MM-dd");
+  }
+  // console.log(range, defCurrency, currency);
+  const res = await fetch(
+    `${API_HOST}/${range}..?to=${currency}&from=${defCurrency}`
+  );
+  const data = await res.json();
+
+  const rates = data.rates;
+
+  return { rates };
+}

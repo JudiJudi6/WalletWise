@@ -65,7 +65,7 @@ function StockCurrencyWindow({ windowName, today, yesteday, defCurrency }) {
   };
   return (
     <StyledWindow
-          to={`${windowName}`}
+          to={`${windowName}?defCurrency=${defCurrency}`}
           whileHover={{ backgroundColor: "var(--color-black-300-hover)" }}
     >
       <HelperRow>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useCurrencies } from "./useCurrencies";
 import StockCurrencyWindow from "./StockCurrencyWindow";
-import { format } from "date-fns";
 import Spinner from "../../ui/Spinner";
 
 const StyledStockCurrenciesWindows = styled.div`

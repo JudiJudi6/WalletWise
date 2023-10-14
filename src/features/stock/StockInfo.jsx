@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ColorText from "../../ui/ColotText";
 import Text from "../../ui/Text";
 import Spinner from "../../ui/Spinner";
-import { useState } from "react";
 import { useCurrenciesNames } from "./useCurrenciesNames";
 import { motion } from "framer-motion";
 
