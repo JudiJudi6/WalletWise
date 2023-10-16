@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
-import { useUserWidth } from "../hooks/useUserWidth";
-import BurgerMenu from "./BurgerMenu";
+import { useUserWidth } from "../../hooks/useUserWidth";
+import BurgerMenu from "../../ui/BurgerMenu";
 import HeaderAccountButton from "./HeaderAccountButton";
 import HeaderAccountName from "./HeaderAccountName";
 import HeaderAccountBalane from "./HeaderAccountBalane";
+import Deposit from "./Deposit";
 // import SideTitle from "./SideTitle";
 
 const StyledHeader = styled.div`
@@ -32,7 +33,8 @@ const HelperDiv = styled.div`
 const HelperHeader = styled.div`
   width: 100%;
   display: flex;
-  justify-content: ${props => props.width > 567 ? 'space-between' : 'flex-end'};
+  justify-content: ${(props) =>
+    props.width > 567 ? "space-between" : "flex-end"};
   align-items: center;
 `;
 
@@ -45,6 +47,7 @@ function Header() {
       <HelperHeader width={userWidth}>
         {userWidth > 567 && <HeaderAccountBalane />}
         <HelperDiv>
+          <Deposit/>
           <HeaderAccountName />
           <HeaderAccountButton />
         </HelperDiv>

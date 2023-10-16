@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useUser } from "../features/autentication/useUser";
+import { useUser } from "../autentication/useUser";
 
 const StyledButton = styled(motion.button)`
   width: 30px;

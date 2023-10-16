@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { css, styled } from "styled-components";
-import Header from "./Header";
+import Header from "../features/header/Header";
 import Sidebar from "./Sidebar";
 import { useUserWidth } from "../hooks/useUserWidth";
 

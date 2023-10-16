@@ -150,7 +150,7 @@ function Currency() {
               if (!isLoadingDetails) console.log(isLoadingDetails) //to nei dziala
             }}
           >
-            <StyledOption value={7}>7 days</StyledOption>
+            <StyledOption value={7}>5 days</StyledOption>
             <StyledOption value={30}>30 days</StyledOption>
             <StyledOption value={90}>90 days</StyledOption>
             <StyledOption value={365}>1 year</StyledOption>
