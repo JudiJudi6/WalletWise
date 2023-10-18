@@ -88,7 +88,7 @@ function MobileNav({ onCloseNav, isOpen }) {
           transition={{ duration: 0.3, delay: 0.45 }}
         >
           <NavButton
-            to={"/stock"}
+            to={"/stock?defCurrency=USD"}
             icon={<FaArrowTrendUp />}
             name="Stock"
             onClick={onCloseNav}

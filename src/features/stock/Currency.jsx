@@ -106,6 +106,7 @@ const StyledImg = styled.img`
 function Currency() {
   const { currencyID } = useParams();
   const [defCurrencyParam] = useSearchParams();
+  const queryClient = useQueryClient();
   const defCurrency = defCurrencyParam.get("defCurrency");
   const [range, setRange] = useState("7");
   const { data: currencies, isLoading: isLoadingNames } = useCurrenciesNames();
@@ -113,6 +114,7 @@ function Currency() {
     data,
     isLoading: isLoadingDetails,
     refetch,
+    isRefetching,
   } = useCurrencyDetails(defCurrency, range, currencyID);
 
   if (isLoadingDetails || isLoadingNames) return <Spinner />;
@@ -144,10 +146,13 @@ function Currency() {
           <StyledSelect
             value={range}
             onChange={(e) => {
-              refetch();
-              console.log(isLoadingDetails)
-              if (!isLoadingDetails) setRange(e.target.value);
-              if (!isLoadingDetails) console.log(isLoadingDetails) //to nei dziala
+              console.log(isRefetching);
+              if (!isRefetching) setRange(e.target.value);                 
+              
+              refetch(["currencyDetails"]);
+              queryClient.invalidateQueries(["currencyDetails"]);
+              console.log(isRefetching);
+              if (!isLoadingDetails) console.log(isLoadingDetails); //to nei dziala
             }}
           >
             <StyledOption value={7}>5 days</StyledOption>
@@ -173,7 +178,6 @@ function Currency() {
                 borderRadius: "8px",
                 border: "1px solid var(--color-main)",
               }}
-              //   itemStyle={{color: 'white'}}
             />
             <Line
               type="monotone"

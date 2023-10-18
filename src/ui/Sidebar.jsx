@@ -36,7 +36,7 @@ function Sidebar() {
       <HelperDiv>
         <NavButton to={"/dashboard"} icon={<RxDashboard />} name="Dashboard" />
         <NavButton to={"/stats"} icon={<IoIosStats />} name="Stats" />
-        <NavButton to={"/stock"} icon={<FaArrowTrendUp />} name="Stock" />
+        <NavButton to={"/stock?defCurrency=USD"} icon={<FaArrowTrendUp />} name="Stock" />
         <NavButton to={"/account"} icon={<VscAccount />} name="Account" />
       </HelperDiv>
       <Logout />

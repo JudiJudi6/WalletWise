@@ -45,7 +45,7 @@ const Button = styled.button`
 `;
 
 const ModalContext = createContext();
-
+// siema
 function Modal({ children }) {
   const [openName, setOpenName] = useState("");
   const open = setOpenName;

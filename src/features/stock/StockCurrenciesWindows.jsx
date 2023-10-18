@@ -37,6 +37,8 @@ function StockCurrenciesWindows({ defCurrency = 'USD' }) {
     value,
   }));
 
+  // console.log(data.secondLastKey)
+
   return (
     <StyledStockCurrenciesWindows>
       {currenciesArray.map((currency) => (
