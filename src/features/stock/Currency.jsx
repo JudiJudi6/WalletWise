@@ -3,11 +3,8 @@ import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useCurrenciesNames } from "./useCurrenciesNames";
 import { useState } from "react";
-import ColorText from "../../ui/ColotText";
 import { useCurrencyDetails } from "./useCurrencyDetails";
 import {
-  Area,
-  AreaChart,
   CartesianGrid,
   Line,
   LineChart,
