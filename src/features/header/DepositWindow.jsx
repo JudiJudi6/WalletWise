@@ -6,17 +6,19 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const StyledDepositWindow = styled.div``;
 
-function DepositWindow() {
+function DepositWindow({ onCloseModal }) {
   const { changeBalance, isLoading } = useChangeBalance();
   const [deposit, setDeposit] = useState("");
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(["user"]);
   const oldBalance = data.user.user_metadata.balance;
 
-    function onClickAction(){
-        const newBalance = Number(oldBalance) + Number(deposit);
-        changeBalance(newBalance)
-    }
+  function onClickAction() {
+    const newBalance = Number(oldBalance) + Number(deposit);
+    changeBalance(newBalance, { onSettled: onCloseModal() });
+  }
+
+  //cza to wystylowac
 
   return (
     <StyledDepositWindow>
