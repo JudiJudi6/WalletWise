@@ -1,11 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { formatCurrency } from "../../utils/helpers";
+import {useUser} from '../autentication/useUser'
 
 function HeaderAccountBalane() {
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]).user.user_metadata;
+  const { user } = useUser();
 
-  return <p>Balance: {formatCurrency(user.balance)}</p>;
+  return <p>Balance: {formatCurrency(user.user.user_metadata.balance)}</p>;
 }
 
 export default HeaderAccountBalane;

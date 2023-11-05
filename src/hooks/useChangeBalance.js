@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { changeBalanceApi } from "../services/apiOperations";
+import { changeBalance as changeBalanceApi } from "../services/apiOperations";
 import toast from "react-hot-toast";
 
 export function useChangeBalance() {
     const queryClient = useQueryClient();
 
-  const { mutate: changeBalance, error } = useMutation({
+  const { mutate: changeBalance, isLoading } = useMutation({
     mutationFn: changeBalanceApi,
     onSuccess: (data) => {
       toast.success("Deposit done");
@@ -17,5 +17,5 @@ export function useChangeBalance() {
     },
   });
 
-  return { changeBalance, error };
+  return { changeBalance, isLoading };
 }
