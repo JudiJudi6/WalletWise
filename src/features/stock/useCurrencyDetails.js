@@ -3,12 +3,10 @@ import { fetchCurrencyDetails } from "../../services/apiStock";
 
 export function useCurrencyDetails(defCurrency, days, currency) {
   console.log(days)
-  const {data, isLoading, refetch, isRefetching} = useQuery({
+  const {data, isLoading, refetch} = useQuery({
     queryFn: () => fetchCurrencyDetails(defCurrency, days, currency),
     queryKey: ["currencyDetails"],
   });
-  
- /// console.log(data)
 
-  return {data, isLoading, refetch, isRefetching}
+  return {data, isLoading, refetch}
 }

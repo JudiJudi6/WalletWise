@@ -14,6 +14,8 @@ import {
   YAxis,
 } from "recharts";
 import Spinner from "../../ui/Spinner";
+import BuyButton from "./BuyButton";
+import SellButton from "./SellButton";
 
 const StyledCurrency = styled.div`
   width: 100%;
@@ -60,8 +62,9 @@ const StyledOption = styled.option`
 const Price = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  //flex-direction: column;
   align-self: flex-start;
 `;
 
@@ -112,28 +115,26 @@ function Currency() {
     data,
     isLoading: isLoadingDetails,
     refetch,
-    isRefetching,
   } = useCurrencyDetails(defCurrency, range, currencyID);
 
-  
-  
-  
-  useEffect(function(){
-    function refetchCurrency() {
-      queryClient.invalidateQueries(["currencyDetails"]);
-      refetch();
-    }
-    refetchCurrency()
-    
-  }, [range, queryClient, refetch])
-  
+  useEffect(
+    function () {
+      function refetchCurrency() {
+        queryClient.invalidateQueries(["currencyDetails"]);
+        refetch();
+      }
+      refetchCurrency();
+    },
+    [range, queryClient, refetch]
+  );
+
   if (isLoadingDetails || isLoadingNames) return <Spinner />;
-  
+
   const currenciesArray = Object.entries(data?.rates).map(([date, Price]) => ({
     date,
     Price: (1 / Price[currencyID]).toFixed(3),
   }));
-  
+
   return (
     <StyledCurrency>
       <Box>
@@ -149,19 +150,13 @@ function Currency() {
             <PriceText>
               {currenciesArray[currenciesArray.length - 1].Price} {defCurrency}
             </PriceText>
+            <BuyButton />
+            <SellButton />
           </Price>
 
           <StyledSelect
             value={range}
-            onChange={(e) => {
-          //    console.log(isLoadingDetails);
-              console.log(range);
-              setRange(e.target.value);
-              console.log(range);
-            //  console.log(isLoadingDetails);
-              //refetchCurrency();
-            // setRange(e.target.value);
-            }}
+            onChange={(e) => setRange(e.target.value)}
           >
             <StyledOption value={7}>5 days</StyledOption>
             <StyledOption value={30}>30 days</StyledOption>
