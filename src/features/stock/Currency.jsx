@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useCurrenciesNames } from "./useCurrenciesNames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrencyDetails } from "./useCurrencyDetails";
 import {
   CartesianGrid,
@@ -107,6 +107,7 @@ function Currency() {
   const defCurrency = defCurrencyParam.get("defCurrency");
   const [range, setRange] = useState("7");
   const { data: currencies, isLoading: isLoadingNames } = useCurrenciesNames();
+  console.log(range);
   const {
     data,
     isLoading: isLoadingDetails,
@@ -114,15 +115,25 @@ function Currency() {
     isRefetching,
   } = useCurrencyDetails(defCurrency, range, currencyID);
 
+  
+  
+  
+  useEffect(function(){
+    function refetchCurrency() {
+      queryClient.invalidateQueries(["currencyDetails"]);
+      refetch();
+    }
+    refetchCurrency()
+    
+  }, [range, queryClient, refetch])
+  
   if (isLoadingDetails || isLoadingNames) return <Spinner />;
-
+  
   const currenciesArray = Object.entries(data?.rates).map(([date, Price]) => ({
     date,
     Price: (1 / Price[currencyID]).toFixed(3),
   }));
-
-  //   console.log(currencies[currencyID]);
-
+  
   return (
     <StyledCurrency>
       <Box>
@@ -143,13 +154,13 @@ function Currency() {
           <StyledSelect
             value={range}
             onChange={(e) => {
-              console.log(isRefetching);
-              if (!isRefetching) setRange(e.target.value);                 
-              
-              refetch(["currencyDetails"]);
-              queryClient.invalidateQueries(["currencyDetails"]);
-              console.log(isRefetching);
-              if (!isLoadingDetails) console.log(isLoadingDetails); //to nei dziala
+          //    console.log(isLoadingDetails);
+              console.log(range);
+              setRange(e.target.value);
+              console.log(range);
+            //  console.log(isLoadingDetails);
+              //refetchCurrency();
+            // setRange(e.target.value);
             }}
           >
             <StyledOption value={7}>5 days</StyledOption>

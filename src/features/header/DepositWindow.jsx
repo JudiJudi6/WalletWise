@@ -67,7 +67,7 @@ function DepositWindow({ onCloseModal }) {
             />
           </InputBox>
           <Button onClick={onClickAction}>Deposit</Button>
-          <Info>In the future, i will implement here some PayU or something</Info>
+          <Info>In the future, i will implement here PayU or something</Info>
         </>
       )}
     </StyledDepositWindow>
