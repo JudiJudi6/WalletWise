@@ -1,8 +1,10 @@
+import Button from "../../ui/Button"
+
 function BuyButton() {
     return (
-        <button>
+        <Button>
             buy
-        </button>
+        </Button>
     )
 }
 
