@@ -1,7 +1,7 @@
 function SellButton() {
     return (
         <button>
-            sell
+            sell dsad
         </button>
     )
 }
