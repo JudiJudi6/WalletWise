@@ -42,13 +42,13 @@ const Info = styled.p`
 function DepositWindow({ onCloseModal }) {
   const { changeBalance, isLoading } = useChangeBalance();
   const [deposit, setDeposit] = useState("");
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(["user"]);
-  const oldBalance = data.user.user_metadata.balance;
+  // const queryClient = useQueryClient();
+  // const data = queryClient.getQueryData(["user"]);
+  // const oldBalance = data.user.user_metadata.balance;
 
   function onClickAction() {
-    const newBalance = Number(oldBalance) + Number(deposit);
-    changeBalance(newBalance, { onSettled: onCloseModal() });
+    // const newBalance = Number(oldBalance) + Number(deposit);
+    changeBalance({amount: deposit, cur: "USD"}, { onSettled: onCloseModal() });
   }
 
   return (
