@@ -1,8 +1,16 @@
+import Button from "../../ui/Button"
+import Modal from "../../ui/Modal"
+
 function SellButton() {
     return (
-        <button>
-            sell dsad
-        </button>
+        <div>
+        <Modal>
+          <Modal.Open opens="deposit">
+            <Button>Sell</Button>
+          </Modal.Open>
+          <Modal.Window name="deposit"><div>Sell</div></Modal.Window>
+        </Modal>
+      </div>
     )
 }
 

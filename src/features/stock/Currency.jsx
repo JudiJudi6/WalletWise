@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useCurrenciesNames } from "./useCurrenciesNames";
 import { useEffect, useState } from "react";
 import { useCurrencyDetails } from "./useCurrencyDetails";
+import { useUserWidth } from "../../hooks/useUserWidth";
+
 import {
   CartesianGrid,
   Line,
@@ -63,14 +65,20 @@ const Price = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
-  //flex-direction: column;
+  gap: 2rem;
   align-self: flex-start;
+  flex-direction: column;
+
+  @media (min-width: 740px) {
+    flex-direction: row;
+  }
 `;
 
 const PriceText = styled.span`
+  margin-left: 10px;
+  letter-spacing: 1px;
   font-size: 2.8rem;
-  color: var(--color-main);
+  /* color: var(--color-main); */
   /* font-weight: bold; */
 `;
 
@@ -103,14 +111,27 @@ const StyledImg = styled.img`
   border-radius: 50%;
 `;
 
+const StockTitle = styled.span`
+  font-size: 2rem;
+
+  @media (min-width: 400px) {
+    font-size: 3rem;
+  }
+`;
+
+const HelperDiv = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
 function Currency() {
   const { currencyID } = useParams();
   const [defCurrencyParam] = useSearchParams();
+  const width = useUserWidth();
   const queryClient = useQueryClient();
   const defCurrency = defCurrencyParam.get("defCurrency");
   const [range, setRange] = useState("7");
   const { data: currencies, isLoading: isLoadingNames } = useCurrenciesNames();
-  console.log(range);
   const {
     data,
     isLoading: isLoadingDetails,
@@ -140,20 +161,46 @@ function Currency() {
       <Box>
         <Title>
           <StyledImg src={`/${currencyID}.png`} />
-          <h2>{currencies[currencyID]}</h2>{" "}
-          <span>
-            {currencyID}/{defCurrency}
-          </span>
+          <StockTitle>
+            {currencies[currencyID]} {currencyID}/{defCurrency}
+          </StockTitle>
         </Title>
         <Row>
           <Price>
             <PriceText>
               {currenciesArray[currenciesArray.length - 1].Price} {defCurrency}
             </PriceText>
-            <BuyButton />
-            <SellButton />
+            <HelperDiv>
+              <BuyButton
+                name={currencies[currencyID]}
+                curID={currencyID}
+                defCur={defCurrency}
+                price={currenciesArray[currenciesArray.length - 1].Price}
+              />
+              <SellButton
+                name={currencies[currencyID]}
+                curID={currencyID}
+                defCur={defCurrency}
+                price={currenciesArray[currenciesArray.length - 1].Price}
+              />
+            </HelperDiv>
           </Price>
 
+          {width > 400 && (
+            <StyledSelect
+              value={range}
+              onChange={(e) => setRange(e.target.value)}
+            >
+              <StyledOption value={7}>5 days</StyledOption>
+              <StyledOption value={30}>30 days</StyledOption>
+              <StyledOption value={90}>90 days</StyledOption>
+              <StyledOption value={365}>1 year</StyledOption>
+              <StyledOption value={1825}>5 years</StyledOption>
+              <StyledOption value={"all"}>all</StyledOption>
+            </StyledSelect>
+          )}
+        </Row>
+        {width < 400 && (
           <StyledSelect
             value={range}
             onChange={(e) => setRange(e.target.value)}
@@ -165,7 +212,7 @@ function Currency() {
             <StyledOption value={1825}>5 years</StyledOption>
             <StyledOption value={"all"}>all</StyledOption>
           </StyledSelect>
-        </Row>
+        )}
         <ResponsiveContainer width="100%" height={450}>
           <LineChart data={currenciesArray}>
             <XAxis dataKey="date" hide={true} />
