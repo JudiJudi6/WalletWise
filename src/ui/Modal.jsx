@@ -9,11 +9,16 @@ const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 90%;
   background-color: var(--color-black-300);
   border-radius: 8px;
   box-shadow: 0px 0px 5px 0px black;
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  @media(min-width: 500px) {
+    width: fit-content;
+  }
 `;
 
 const Overlay = styled.div`

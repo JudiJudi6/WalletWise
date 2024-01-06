@@ -7,7 +7,7 @@ function BuyButton({ name, curID, defCur, price }) {
     <div>
       <Modal>
         <Modal.Open opens="buy">
-          <Button>Buy</Button>
+          <Button size="small">Buy</Button>
         </Modal.Open>
         <Modal.Window name="buy">
           <BuyModal name={name} curID={curID} defCur={defCur} price={price} />

@@ -23,7 +23,6 @@ export function useChangeBalance() {
       changeBalanceApi(newBalance);
     },
     onSuccess: (data) => {
-      toast.success("Deposit done");
       queryClient.setQueryData(["user"], data);
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },

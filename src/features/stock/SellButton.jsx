@@ -6,7 +6,7 @@ function SellButton() {
         <div>
         <Modal>
           <Modal.Open opens="deposit">
-            <Button>Sell</Button>
+            <Button size="small">Sell</Button>
           </Modal.Open>
           <Modal.Window name="deposit"><div>Sell</div></Modal.Window>
         </Modal>

@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import InputBox from "../../ui/InputBox";
 import { motion } from "framer-motion";
 import { BsCash } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 const StyledDepositWindow = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ const Input = styled(motion.input)`
 
 const Info = styled.p`
   font-size: 1rem;
-`
+`;
 
 function DepositWindow({ onCloseModal }) {
   const { changeBalance, isLoading } = useChangeBalance();
@@ -48,7 +49,11 @@ function DepositWindow({ onCloseModal }) {
 
   function onClickAction() {
     // const newBalance = Number(oldBalance) + Number(deposit);
-    changeBalance({amount: deposit, cur: "USD"}, { onSettled: onCloseModal() });
+
+    changeBalance(
+      { amount: deposit, cur: "USD" },
+      { onSettled: onCloseModal(), onSuccess: toast.success("Deposit done") }
+    );
   }
 
   return (

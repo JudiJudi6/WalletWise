@@ -115,13 +115,14 @@ const StockTitle = styled.span`
   font-size: 2rem;
 
   @media (min-width: 400px) {
-    font-size: 3rem;
+    font-size: 2.2rem;
   }
 `;
 
 const HelperDiv = styled.div`
   display: flex;
   gap: 2rem;
+  /* width: 1000px; */
 `;
 
 function Currency() {
