@@ -66,7 +66,7 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
   const money = balance.find((cur) => cur.cur === curID)?.amount || 0;
 
   function onClickAction() {
-    if (price * sell <= money) {
+    if (sell > money) {
       toast.error("You don't have enough money to sell");
     } else {
       changeBalance({ amount: price * sell, cur: defCur });
@@ -89,9 +89,9 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
             {name}{" "}
             <Equal>
               1 {curID} = {price} {defCur}{" "}
-              <p style={{ color: "white" }}>
+              <span style={{ color: "white", display: "block" }}>
                 You have: {formatCurrency(money)} {curID}
-              </p>
+              </span>
             </Equal>
           </Title>
           <InputBox icon={<BsCash />}>
@@ -110,7 +110,9 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
               </span>
             )}
           </Price>
-          <Button onClick={onClickAction}>Sell</Button>
+          <Button disabled={sell === 0} onClick={onClickAction}>
+            Sell
+          </Button>
         </>
       )}
     </StyledSellModal>

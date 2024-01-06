@@ -30,7 +30,8 @@ const Title = styled.p`
   }
 `;
 
-const Equal = styled.p`
+const Equal = styled.span`
+  display: block;
   font-size: 1.3rem;
   color: var(--color-main);
 
@@ -102,7 +103,9 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
           <Price>
             To pay: {formatCurrency(price * buy)} {defCur}
           </Price>
-          <Button onClick={onClickAction}>Buy</Button>
+          <Button disabled={buy === 0} onClick={onClickAction}>
+            Buy
+          </Button>
         </>
       )}
     </StyledBuyModal>
