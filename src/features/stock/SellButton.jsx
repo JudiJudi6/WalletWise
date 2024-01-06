@@ -1,17 +1,20 @@
-import Button from "../../ui/Button"
-import Modal from "../../ui/Modal"
+import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
+import SellModal from "./SellModal";
 
-function SellButton() {
-    return (
-        <div>
-        <Modal>
-          <Modal.Open opens="deposit">
-            <Button size="small">Sell</Button>
-          </Modal.Open>
-          <Modal.Window name="deposit"><div>Sell</div></Modal.Window>
-        </Modal>
-      </div>
-    )
+function SellButton({ name, curID, defCur, price }) {
+  return (
+    <div>
+      <Modal>
+        <Modal.Open opens="sell">
+          <Button size="small">Sell</Button>
+        </Modal.Open>
+        <Modal.Window name="sell">
+          <SellModal name={name} curID={curID} defCur={defCur} price={price} />
+        </Modal.Window>
+      </Modal>
+    </div>
+  );
 }
 
-export default SellButton
+export default SellButton;

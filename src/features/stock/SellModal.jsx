@@ -10,7 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { formatCurrency } from "../../utils/helpers";
 
-const StyledBuyModal = styled.div`
+const StyledSellModal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -57,21 +57,21 @@ const Price = styled.p`
   font-size: 18px;
 `;
 
-function BuyModal({ name, curID, defCur, price, onCloseModal }) {
-  const [buy, setBuy] = useState("");
+function SellModal({ name, curID, defCur, price, onCloseModal }) {
+  const [sell, setSell] = useState("");
   const { changeBalance, isLoading } = useChangeBalance();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
+  const money = balance.find((cur) => cur.cur === curID)?.amount || 0;
 
   function onClickAction() {
-    const money = balance.find((cur) => cur.cur === defCur).amount;
-    if (price * buy > money) {
-      toast.error("You don't have enough money to make the transaction");
+    if (price * sell <= money) {
+      toast.error("You don't have enough money to sell");
     } else {
-      changeBalance({ amount: -(price * buy), cur: defCur });
+      changeBalance({ amount: price * sell, cur: defCur });
       changeBalance(
-        { amount: +buy, cur: curID },
+        { amount: -sell, cur: curID },
         {
           onSettled: onCloseModal(),
           onSuccess: toast.success("Transaction done"),
@@ -80,7 +80,7 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
     }
   }
   return (
-    <StyledBuyModal>
+    <StyledSellModal>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -88,25 +88,33 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
           <Title>
             {name}{" "}
             <Equal>
-              1 {curID} = {price} {defCur}
+              1 {curID} = {price} {defCur}{" "}
+              <p style={{ color: "white" }}>
+                You have: {formatCurrency(money)} {curID}
+              </p>
             </Equal>
           </Title>
           <InputBox icon={<BsCash />}>
             <Input
               placeholder="Amount"
               type="number"
-              value={buy}
-              onChange={(e) => setBuy(e.target.value)}
+              value={sell}
+              onChange={(e) => setSell(e.target.value)}
             />
           </InputBox>
           <Price>
-            To pay: {formatCurrency(price * buy)} {defCur}
+            {sell && (
+              <span>
+                You sell {sell} {curID} for {formatCurrency(price * sell)}{" "}
+                {defCur}
+              </span>
+            )}
           </Price>
-          <Button onClick={onClickAction}>Buy</Button>
+          <Button onClick={onClickAction}>Sell</Button>
         </>
       )}
-    </StyledBuyModal>
+    </StyledSellModal>
   );
 }
 
-export default BuyModal;
+export default SellModal;
