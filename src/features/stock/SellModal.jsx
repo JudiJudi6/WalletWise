@@ -30,7 +30,8 @@ const Title = styled.p`
   }
 `;
 
-const Equal = styled.p`
+const Equal = styled.span`
+  display: block;
   font-size: 1.3rem;
   color: var(--color-main);
 
