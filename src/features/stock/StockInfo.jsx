@@ -58,7 +58,7 @@ function StockInfo({defCurrency, setDefCurrency}) {
         <Spinner />
       ) : (
         <div>
-          <label htmlFor="cur">Select your default currency: </label>
+          <label htmlFor="cur">Select your currency: </label>
           <StyledSelect
             value={defCurrency}
             onChange={(e) => setDefCurrency(e.target.value)}
