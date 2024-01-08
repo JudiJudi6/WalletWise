@@ -9,3 +9,12 @@ export async function changeBalance(balance) {
 
   return data;
 }
+
+export async function addHistory(history){
+  const { data, error } = await supabase.auth.updateUser({
+    data: { history: history },
+  });
+  if (error) throw new error(error.message);
+
+  return data;
+}
