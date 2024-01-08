@@ -10,7 +10,7 @@ export async function changeBalance(balance) {
   return data;
 }
 
-export async function addHistory(history){
+export async function changeHistory(history){
   const { data, error } = await supabase.auth.updateUser({
     data: { history: history },
   });

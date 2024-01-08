@@ -9,6 +9,7 @@ import Spinner from "../../ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { formatCurrency } from "../../utils/helpers";
+import { useAddTransactionHistory } from "../../hooks/useAddTransactionHistory";
 
 const StyledSellModal = styled.div`
   display: flex;
@@ -60,17 +61,21 @@ const Price = styled.p`
 
 function SellModal({ name, curID, defCur, price, onCloseModal }) {
   const [sell, setSell] = useState("");
-  const { changeBalance, isLoading } = useChangeBalance();
+  const { changeBalance, isLoading: isLoadingBalance } = useChangeBalance();
+  const { changeHistory, isLoading: isLoadingHistory } =
+    useAddTransactionHistory();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
   const money = balance.find((cur) => cur.cur === curID)?.amount || 0;
+  const today = new Date()
 
   function onClickAction() {
     if (sell > money) {
       toast.error("You don't have enough money to sell");
     } else {
       changeBalance({ amount: price * sell, cur: defCur });
+      changeHistory({type: 'sell', amount: sell, date: today.toLocaleDateString()})
       changeBalance(
         { amount: -sell, cur: curID },
         {
@@ -82,7 +87,7 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
   }
   return (
     <StyledSellModal>
-      {isLoading ? (
+      {isLoadingBalance || isLoadingHistory ? (
         <Spinner />
       ) : (
         <>
