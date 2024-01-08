@@ -20,13 +20,20 @@ const StyledDashboard = styled.div`
 `;
 
 const WelcomeInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   grid-row: 1;
   grid-column: 1;
   background-color: var(--color-black-300);
   border-radius: 8px;
   box-shadow: 3px 3px 10px -3px #000000;
   width: 100%;
-  padding: 5rem;
+  padding: 2rem;
+
+  @media (min-width: 600px) {
+    padding: 5rem;
+  }
 `;
 
 const InfoCard = styled.div`
@@ -54,7 +61,7 @@ function Dashboard() {
         </span>
       </WelcomeInfo>
       {/* <InfoCard> */}
-        <AccountBalance user={user} />
+      <AccountBalance user={user} />
       {/* </InfoCard> */}
       <InfoCard>sda</InfoCard>
       <InfoCard>sda</InfoCard>
