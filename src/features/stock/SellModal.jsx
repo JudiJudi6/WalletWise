@@ -68,14 +68,22 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
   const money = balance.find((cur) => cur.cur === curID)?.amount || 0;
-  const today = new Date()
+  const today = new Date();
 
   function onClickAction() {
     if (sell > money) {
       toast.error("You don't have enough money to sell");
     } else {
       changeBalance({ amount: price * sell, cur: defCur });
-      changeHistory({type: 'sell', amount: sell, date: today.toLocaleDateString()})
+
+      changeHistory({
+        type: "sell",
+        amount: sell,
+        price: price * sell,
+        defCur: defCur,
+        date: today.toLocaleDateString(),
+        cur: curID,
+      });
       changeBalance(
         { amount: -sell, cur: curID },
         {

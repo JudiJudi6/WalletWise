@@ -9,6 +9,7 @@ import Spinner from "../../ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { formatCurrency } from "../../utils/helpers";
+import { useAddTransactionHistory } from "../../hooks/useAddTransactionHistory";
 
 const StyledBuyModal = styled.div`
   display: flex;
@@ -62,8 +63,11 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
   const [buy, setBuy] = useState("");
   const { changeBalance, isLoading } = useChangeBalance();
   const queryClient = useQueryClient();
+  const { changeHistory, isLoading: isLoadingHistory } =
+    useAddTransactionHistory();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
+  const today = new Date()
 
   function onClickAction() {
     const money = balance.find((cur) => cur.cur === defCur).amount;
@@ -71,6 +75,14 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
       toast.error("You don't have enough money to make the transaction");
     } else {
       changeBalance({ amount: -(price * buy), cur: defCur });
+      changeHistory({
+        type: "buy",
+        amount: buy,
+        price: price * buy,
+        date: today.toLocaleDateString(),
+        cur: defCur,
+        defCur: defCur,
+      });
       changeBalance(
         { amount: +buy, cur: curID },
         {
@@ -82,7 +94,7 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
   }
   return (
     <StyledBuyModal>
-      {isLoading ? (
+      {isLoading || isLoadingHistory ? (
         <Spinner />
       ) : (
         <>
