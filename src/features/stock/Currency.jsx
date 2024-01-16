@@ -38,10 +38,6 @@ const Box = styled.div`
   border-radius: 8px;
   flex-direction: column;
   gap: 2rem;
-
-  /* @media (min-width: 600px) {
-    flex-direction: row;
-  } */
 `;
 
 const StyledSelect = styled.select`
@@ -78,8 +74,6 @@ const PriceText = styled.span`
   margin-left: 10px;
   letter-spacing: 1px;
   font-size: 2.8rem;
-  /* color: var(--color-main); */
-  /* font-weight: bold; */
 `;
 
 const Row = styled.div`
@@ -122,7 +116,6 @@ const StockTitle = styled.span`
 const HelperDiv = styled.div`
   display: flex;
   gap: 2rem;
-  /* width: 1000px; */
 `;
 
 function Currency() {

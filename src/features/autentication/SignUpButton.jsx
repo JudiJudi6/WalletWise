@@ -15,7 +15,6 @@ const StyledSignUpButton = styled(motion.button)`
 `;
 
 const SignUpButtonArea = styled.div`
-  /* width: 100%; */
   z-index: 1;
   margin-top: ${(props) => (props.width < 992 ? "10px" : "35px")};
 `;

@@ -195,9 +195,8 @@ function SignUpForm({ showRegister }) {
             validate: (value) => {
               const eighteenYearsAgo = new Date();
               eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-
               const selectedDate = new Date(value);
-
+              
               return (
                 selectedDate <= eighteenYearsAgo || "You must be 18 years old"
               );
