@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useUser } from "../features/autentication/useUser";
 import ColorText from "../ui/ColotText";
 import AccountBalance from "../features/dashboard/AccountBalance";
+import MarketHistory from "../features/dashboard/MarketHistory";
+import SendToFriends from "../features/dashboard/SendToFriends";
 
 const StyledDashboard = styled.div`
   display: grid;
@@ -55,18 +57,20 @@ function Dashboard() {
         <span>
           Hi, <ColorText size="1.7rem">{user.nickName}</ColorText>{" "}
           <p>
-            here you can manage your account, make transfers to friends and see
+            here you can manage your balance, make transfers to friends and see
             your stats.
           </p>
         </span>
       </WelcomeInfo>
       {/* <InfoCard> */}
       <AccountBalance user={user} />
+      <MarketHistory user={user} />
       {/* </InfoCard> */}
+      <SendToFriends user={user} />
       <InfoCard>sda</InfoCard>
-      <InfoCard>sda</InfoCard>
-      <InfoCard>sda</InfoCard>
-      <InfoCard>sda</InfoCard>
+      {/* <InfoCard>sda</InfoCard> */}
+      {/* <InfoCard>sda</InfoCard> */}
+      {/* <InfoCard>sda</InfoCard> */}
     </StyledDashboard>
   );
 }

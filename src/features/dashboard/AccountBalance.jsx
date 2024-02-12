@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { formatCurrency } from "../../utils/helpers";
+import { StyledHeader } from "./MarketHistory";
 
 const StyledAccountBalance = styled.div`
   background-color: var(--color-black-300);
@@ -32,7 +33,7 @@ const MoneyCard = styled(motion(NavLink))`
   font-size: 1.6rem;
   margin-top: 15px;
   letter-spacing: 1px;
-  
+
   @media (min-width: 1000px) {
     padding: 2rem;
   }
@@ -49,6 +50,7 @@ const MainMoneyCard = styled.div`
   /* color: white; */
   letter-spacing: 1px;
   margin-bottom: 10px;
+  font-size: 20px;
   /* padding: 1rem; */
   /* display: flex; */
   /* justify-content: center; */
@@ -80,7 +82,7 @@ const Header = styled.div`
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.6rem;
-`
+`;
 
 function AccountBalance({ user }) {
   let balance = user.user.user_metadata.balance;
@@ -91,10 +93,11 @@ function AccountBalance({ user }) {
   return (
     <StyledAccountBalance>
       <Header>
-        <p>Current balance: </p>
+        <StyledHeader>Current balance: </StyledHeader>
       </Header>
       <MainMoneyCard>
-        <StyledMainImg src={`/${usd.cur}.png`} /> {formatCurrency(usd.amount)} USD <p></p>
+        <StyledMainImg src={`/${usd.cur}.png`} /> {formatCurrency(usd.amount)}{" "}
+        USD <p></p>
       </MainMoneyCard>
       <HelperDiv>
         {/* <p>Other currencies:</p> */}

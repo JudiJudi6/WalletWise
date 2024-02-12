@@ -67,7 +67,7 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
     useAddTransactionHistory();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
-  const today = new Date()
+  const today = new Date();
 
   function onClickAction() {
     const money = balance.find((cur) => cur.cur === defCur).amount;
@@ -80,7 +80,7 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
         amount: buy,
         price: price * buy,
         date: today.toLocaleDateString(),
-        cur: defCur,
+        cur: curID,
         defCur: defCur,
       });
       changeBalance(

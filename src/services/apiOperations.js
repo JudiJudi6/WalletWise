@@ -1,7 +1,6 @@
 import supabase from "./supabase";
 
 export async function changeBalance(balance) {
-  console.log(balance);
   const { data, error } = await supabase.auth.updateUser({
     data: { balance: balance },
   });
