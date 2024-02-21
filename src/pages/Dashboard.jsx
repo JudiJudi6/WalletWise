@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Spinner from "../ui/Spinner";
 import { useEffect } from "react";
 import { useUser } from "../features/autentication/useUser";
 import ColorText from "../ui/ColotText";
 import AccountBalance from "../features/dashboard/AccountBalance";
 import MarketHistory from "../features/dashboard/MarketHistory";
 import SendToFriends from "../features/dashboard/SendToFriends";
+import AddFriend from "../ui/AddFriend";
 
 const StyledDashboard = styled.div`
   display: grid;
@@ -15,15 +15,11 @@ const StyledDashboard = styled.div`
   @media (min-width: 900px) {
     grid-template-columns: 2fr 1fr;
   }
-  /* 
-  @media (min-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  } */
 `;
 
 const WelcomeInfo = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   grid-row: 1;
   grid-column: 1;
@@ -36,14 +32,6 @@ const WelcomeInfo = styled.div`
   @media (min-width: 600px) {
     padding: 5rem;
   }
-`;
-
-const InfoCard = styled.div`
-  background-color: var(--color-black-300);
-  border-radius: 8px;
-  box-shadow: 3px 3px 10px -3px #000000;
-  width: 100%;
-  padding: 5rem;
 `;
 
 function Dashboard() {
@@ -62,15 +50,10 @@ function Dashboard() {
           </p>
         </span>
       </WelcomeInfo>
-      {/* <InfoCard> */}
       <AccountBalance user={user} />
       <MarketHistory user={user} />
-      {/* </InfoCard> */}
       <SendToFriends user={user} />
-      <InfoCard>sda</InfoCard>
-      {/* <InfoCard>sda</InfoCard> */}
-      {/* <InfoCard>sda</InfoCard> */}
-      {/* <InfoCard>sda</InfoCard> */}
+      <AddFriend user={user} />
     </StyledDashboard>
   );
 }
