@@ -3,7 +3,6 @@ import Spinner from "../../ui/Spinner";
 import Button from "../../ui/Button";
 import { useChangeBalance } from "../../hooks/useChangeBalance";
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import InputBox from "../../ui/InputBox";
 import { motion } from "framer-motion";
 import { BsCash } from "react-icons/bs";
@@ -14,8 +13,8 @@ const StyledDepositWindow = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  height: 175px;
-  width: 200px;
+  padding: 20px;
+  gap: 25px;
 `;
 
 const Header = styled.p`
@@ -43,13 +42,16 @@ const Info = styled.p`
 function DepositWindow({ onCloseModal }) {
   const { changeBalance, isLoading } = useChangeBalance();
   const [deposit, setDeposit] = useState("");
-  // const queryClient = useQueryClient();
-  // const data = queryClient.getQueryData(["user"]);
-  // const oldBalance = data.user.user_metadata.balance;
+
+  function setDepositFn(value) {
+    if (value < 0) {
+      toast.error("You cannot depsit negative amount");
+    } else {
+      setDeposit(value);
+    }
+  }
 
   function onClickAction() {
-    // const newBalance = Number(oldBalance) + Number(deposit);
-
     changeBalance(
       { amount: deposit, cur: "USD" },
       { onSettled: onCloseModal(), onSuccess: toast.success("Deposit done") }
@@ -68,7 +70,7 @@ function DepositWindow({ onCloseModal }) {
               placeholder="Deposit"
               type="number"
               value={deposit}
-              onChange={(e) => setDeposit(e.target.value)}
+              onChange={(e) => setDepositFn(e.target.value)}
             />
           </InputBox>
           <Button onClick={onClickAction}>Deposit</Button>

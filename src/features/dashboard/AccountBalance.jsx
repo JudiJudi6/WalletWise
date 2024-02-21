@@ -18,7 +18,6 @@ const StyledAccountBalance = styled.div`
   @media (min-width: 900px) {
     grid-row: 1/3;
     grid-column: 2;
-    /* padding: 5rem; */
   }
 `;
 
@@ -46,14 +45,9 @@ const MainMoneyCard = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 2.4rem;
-  /* color: var(--color-green); */
-  /* color: white; */
   letter-spacing: 1px;
   margin-bottom: 10px;
   font-size: 20px;
-  /* padding: 1rem; */
-  /* display: flex; */
-  /* justify-content: center; */
 `;
 
 const HelperDiv = styled.div`
@@ -61,9 +55,7 @@ const HelperDiv = styled.div`
   overflow: scroll;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   align-items: center;
-  /* color: #dadada; */
 `;
 
 const StyledMainImg = styled.img`
@@ -100,7 +92,6 @@ function AccountBalance({ user }) {
         USD <p></p>
       </MainMoneyCard>
       <HelperDiv>
-        {/* <p>Other currencies:</p> */}
         {balance.map((currency) => {
           return (
             <MoneyCard

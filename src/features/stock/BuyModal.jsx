@@ -41,6 +41,15 @@ const Equal = styled.span`
   }
 `;
 
+const Info = styled.span`
+  display: block;
+  font-size: 1.3rem;
+
+  @media (min-width: 480px) {
+    font-size: 1.7rem;
+  }
+`;
+
 const Input = styled(motion.input)`
   height: 30px;
   width: 80px;
@@ -67,6 +76,8 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
     useAddTransactionHistory();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
+  const yourMoneyDef = balance.find((cur) => cur.cur === defCur).amount;
+  const yourMoneyBuy = balance.find((cur) => cur.cur === curID).amount;
   const today = new Date();
 
   function onClickAction() {
@@ -103,6 +114,10 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
             <Equal>
               1 {curID} = {price} {defCur}
             </Equal>
+            <Info>
+              You have {formatCurrency(yourMoneyBuy)} {curID} and{" "}
+              {formatCurrency(yourMoneyDef)} {defCur}
+            </Info>
           </Title>
           <InputBox icon={<BsCash />}>
             <Input

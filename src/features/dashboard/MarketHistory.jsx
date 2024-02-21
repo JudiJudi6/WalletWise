@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import HistoryItem from "../../ui/HistoryItem";
-import { Link } from "react-router-dom";
 
-const StyledMarketHistory = styled(Link)`
+const StyledMarketHistory = styled.div`
   background-color: var(--color-black-300);
   border-radius: 8px;
   box-shadow: 3px 3px 10px -3px #000000;
@@ -44,7 +43,7 @@ function MarketHistory({ user }) {
     <StyledMarketHistory to={"/stats"}>
       <StyledHeader>Market History</StyledHeader>
       <CardInfo>Last 3 operations:</CardInfo>
-      {last3History.map((item, i) => (
+      {last3History.reverse().map((item, i) => (
         <HistoryItem item={item} key={i} />
       ))}
     </StyledMarketHistory>
