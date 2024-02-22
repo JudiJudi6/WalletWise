@@ -18,12 +18,13 @@ export async function changeHistory(history) {
   return data;
 }
 
-export async function addFriend(friends) {
-  const check = await checkNickNamesList(friends.at(-1));
-  if (check) {
-    console.log(check);
+export async function addFriend(oldFriends, newFriend) {
+  const friend = await checkNickNamesList(newFriend);
+  console.log(friend);
+
+  if (friend) {
     const { data, error } = await supabase.auth.updateUser({
-      data: { friends: friends },
+      data: { friends: [...oldFriends, friend] },
     });
 
     if (error) throw new Error(error.message);
@@ -36,9 +37,10 @@ export async function addFriend(friends) {
 export async function checkNickNamesList(nick) {
   const { data: nickNames, error: nickNamesError } = await supabase
     .from("nickNames")
-    .select("nickName");
+    .select("*");
   if (nickNamesError) throw new Error(nickNamesError.message);
 
+  console.log(nick);
   const check = nickNames.find((fr) => nick === fr.nickName);
   return check;
 }

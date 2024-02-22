@@ -10,7 +10,7 @@ export function useAddFriend() {
       try {
         const data = queryClient.getQueryData(["user"]);
         let oldFriends = data.user.user_metadata.friends;
-        await addFriendApi([...oldFriends, newFriend]);
+        await addFriendApi(oldFriends, newFriend);
       } catch (error) {
         throw new Error(error.message);
       }

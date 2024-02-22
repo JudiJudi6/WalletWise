@@ -62,8 +62,11 @@ function AddFriend() {
   console.log(friends);
 
   function onClickAction() {
-    if (friends.find((fr) => fr === friend)) {
+    if (friends.find((fr) => fr.nickName === friend)) {
       toast.error(`${friend} is your friend`);
+    } else if (user.nickName === friend) {
+      toast.error(`${friend} it's you!`);
+      setFriend("");
     } else {
       addFriend(friend);
       setFriend("");
@@ -82,7 +85,9 @@ function AddFriend() {
             onChange={(e) => setFriend(e.target.value)}
           />
         </InputBox>
-        <Button onClick={onClickAction} disabled={!friend}>Add</Button>
+        <Button onClick={onClickAction} disabled={!friend}>
+          Add
+        </Button>
       </StyledMain>
     </StyledAddFriend>
   );
