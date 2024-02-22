@@ -77,11 +77,11 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
   const yourMoneyDef = balance.find((cur) => cur.cur === defCur).amount;
-  const yourMoneyBuy = balance.find((cur) => cur.cur === curID).amount;
+  const yourMoneyBuy = balance.find((cur) => cur.cur === curID)?.amount || 0;
   const today = new Date();
 
   function onClickAction() {
-    const money = balance.find((cur) => cur.cur === defCur).amount;
+    const money = balance.find((cur) => cur.cur === defCur)?.amount;
     if (price * buy > money) {
       toast.error("You don't have enough money to make the transaction");
     } else {

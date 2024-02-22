@@ -5,6 +5,7 @@ import HeaderAccountButton from "./HeaderAccountButton";
 import HeaderAccountName from "./HeaderAccountName";
 import HeaderAccountBalane from "./HeaderAccountBalane";
 import Deposit from "./Deposit";
+import Notifications from "./Notifications";
 // import SideTitle from "./SideTitle";
 
 const StyledHeader = styled.div`
@@ -47,7 +48,8 @@ function Header() {
       <HelperHeader width={userWidth}>
         {userWidth > 567 && <HeaderAccountBalane />}
         <HelperDiv>
-          <Deposit/>
+          <Notifications />
+          <Deposit />
           <HeaderAccountName />
           <HeaderAccountButton />
         </HelperDiv>

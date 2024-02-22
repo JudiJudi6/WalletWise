@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "../autentication/useUser";
 
 function HeaderAccountName() {

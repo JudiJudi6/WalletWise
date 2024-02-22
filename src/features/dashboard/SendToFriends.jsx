@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import InputBox from "../../ui/InputBox";
+import { FaUserFriends } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
+import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
+import AcceptTransaction from "./AcceptTransaction";
 
 const StyledSelect = styled(motion.select)`
   background-color: transparent;
@@ -37,8 +43,37 @@ const StyledSendToFriends = styled.div`
   }
 `;
 
+const StyledButton = styled.button`
+  background-color: transparent;
+`;
+
+const FriendsList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SendFriend = styled.form``;
+
+const Input = styled(motion.input)`
+  height: 30px;
+  width: 80px;
+  border: none;
+  flex-grow: 1;
+  padding-left: 8px;
+  font-size: 1.4rem;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 function SendToFriends() {
   const [defCurrency, setDefCurrency] = useState("USD");
+  const [amount, setAmount] = useState(0);
+  const [selectedFriend, setSelectedFriend] = useState("");
+  const [acceptModal, setAcceptModal] = useState(false);
+  const [message, setMessage] = useState("");
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
   const balance = user.user.user_metadata.balance;
@@ -68,11 +103,64 @@ function SendToFriends() {
       </div>
       <div>
         {user.user.user_metadata.friends.length !== 0 ? (
-          <p>sa</p>
+          <FriendsList>
+            {user.user.user_metadata.friends.map((fr) => (
+              <StyledButton
+                key={fr.nickName}
+                onClick={() => setSelectedFriend(fr.nickName)}
+              >
+                {fr.nickName}
+              </StyledButton>
+            ))}
+          </FriendsList>
         ) : (
           <p>You don&apos;t add any friends</p>
         )}
       </div>
+      <SendFriend>
+        <InputBox icon={<FaUserFriends />}>
+          <Input
+            placeholder="Amount"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </InputBox>
+        <InputBox icon={<FaUserFriends />}>
+          <Input
+            placeholder="Friend"
+            type="text"
+            value={selectedFriend}
+            onChange={(e) => setSelectedFriend(e.target.value)}
+          />
+        </InputBox>{" "}
+        <InputBox icon={<FaMessage />}>
+          <Input
+            placeholder="Message"
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </InputBox>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            setAcceptModal(true);
+          }}
+          disabled={!selectedFriend || !amount || !message}
+        >
+          Send
+        </Button>
+      </SendFriend>
+      {acceptModal && (
+        <AcceptTransaction
+          setAcceptModal={setAcceptModal}
+          amount={amount}
+          message={message}
+          selectedFriend={selectedFriend}
+          defCurrency={defCurrency}
+        />
+      )}
     </StyledSendToFriends>
   );
 }

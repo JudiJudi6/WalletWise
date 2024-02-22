@@ -40,7 +40,6 @@ export async function checkNickNamesList(nick) {
     .select("*");
   if (nickNamesError) throw new Error(nickNamesError.message);
 
-  console.log(nick);
   const check = nickNames.find((fr) => nick === fr.nickName);
   return check;
 }
