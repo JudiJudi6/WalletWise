@@ -13,7 +13,7 @@ const StyledMarketHistory = styled.div`
   }
 
   @media (min-width: 900px) {
-    grid-row: 3/6;
+    grid-row: 3/5;
     grid-column: 2;
   }
 `;
@@ -43,9 +43,13 @@ function MarketHistory({ user }) {
     <StyledMarketHistory to={"/stats"}>
       <StyledHeader>Market History</StyledHeader>
       <CardInfo>Last 3 operations:</CardInfo>
-      {last3History.reverse().map((item, i) => (
-        <HistoryItem item={item} key={i} />
-      ))}
+      {last3History.length === 0 ? (
+        <p>Go to the Stock to do some operations</p>
+      ) : (
+        last3History
+          .reverse()
+          .map((item, i) => <HistoryItem item={item} key={i} />)
+      )}
     </StyledMarketHistory>
   );
 }

@@ -16,7 +16,7 @@ const StyledModal = styled.div`
   padding: 3.2rem 4rem;
   transition: all 0.5s;
 
-  @media(min-width: 500px) {
+  @media (min-width: 500px) {
     width: fit-content;
   }
 `;
@@ -49,6 +49,11 @@ const Button = styled.button`
   }
 `;
 
+const Content = styled.div`
+  max-height: 80vh;
+  overflow-y: auto;
+`;
+
 const ModalContext = createContext();
 function Modal({ children }) {
   const [openName, setOpenName] = useState("");
@@ -56,7 +61,7 @@ function Modal({ children }) {
   const close = () => setOpenName("");
 
   return (
-    <ModalContext.Provider value={{open, close, openName}}>
+    <ModalContext.Provider value={{ open, close, openName }}>
       {children}
     </ModalContext.Provider>
   );
@@ -79,14 +84,14 @@ function Window({ children, name }) {
         <Button onClick={close}>
           <HiXMark />
         </Button>
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <Content>{cloneElement(children, { onCloseModal: close })}</Content>
       </StyledModal>
     </Overlay>,
     document.body
   );
 }
 
-Modal.Open = Open
-Modal.Window = Window
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;

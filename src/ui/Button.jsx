@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
 const sizes = {
+  verysmall: css`
+    font-size: 1.2rem;
+    padding: 1rem 1.2rem;
+    font-weight: 500;
+    text-align: center;
+  `,
   small: css`
     font-size: 1.2rem;
     padding: 1.2rem 2rem;
@@ -63,7 +69,7 @@ const Button = styled(motion.button)`
   box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]} 
+  ${(props) => variations[props.variation]}
 `;
 
 Button.defaultProps = {
