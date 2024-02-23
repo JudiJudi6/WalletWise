@@ -20,7 +20,7 @@ export async function signUp({
         avatar:
           "https://pdselwjhhojvthszriij.supabase.co/storage/v1/object/sign/avatars/default-user.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2RlZmF1bHQtdXNlci5qcGciLCJpYXQiOjE2OTY3MTMyNzYsImV4cCI6ODY1Njk2NjI2ODc2fQ.GWyLDvr78ABiQdNeRdLsMRWO-_d9q3VyMznrT6hkKyo&t=2023-10-07T21%3A14%3A36.394Z",
         friends: [],
-        balance: [{ amount: 50, cur: "USD" }],
+        balance: [{ amount: 0, cur: "USD" }],
         history: [],
       },
     },
@@ -46,9 +46,10 @@ export async function signUp({
             userID,
             notifications: [
               {
+                from: "WalletWise",
                 message: "Welcome!",
                 amount: "50",
-                defCurrenct: "USD",
+                defCurrency: "USD",
               },
             ],
           },
@@ -201,7 +202,28 @@ export async function updateNotifications(userID, notification) {
     .update({
       notifications: [...notifications.at(0).notifications, notification],
     })
-    .eq('userID', userID)
+    .eq("userID", userID)
+    .select();
+
+  if (error) throw error.message;
+
+  return data;
+}
+
+export async function confirmNotification(userID, index) {
+  const notifications = await getUserNotifications(userID);
+  // console.log(
+  //   notifications.at(0).notifications.filter((item, i) => i !== index)
+  // );
+  console.log(userID, index);
+  const { data, error } = await supabase
+    .from("notifications")
+    .update({
+      notifications: notifications
+        .at(0)
+        .notifications.filter((item, i) => i !== index),
+    })
+    .eq("userID", userID)
     .select();
 
   if (error) throw error.message;
