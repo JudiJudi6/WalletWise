@@ -44,10 +44,10 @@ function DepositWindow({ onCloseModal }) {
   const [deposit, setDeposit] = useState("");
 
   function setDepositFn(value) {
-    if (value < 0) {
-      toast.error("You cannot depsit negative amount");
-    } else {
+    if (/^[0-9]{1,6}$/.test(value) || value === "") {
       setDeposit(value);
+    } else {
+      toast.error("You cannot deposit negative amount");
     }
   }
 
@@ -68,7 +68,7 @@ function DepositWindow({ onCloseModal }) {
           <InputBox icon={<BsCash />}>
             <Input
               placeholder="Deposit"
-              type="number"
+              type="text"
               value={deposit}
               onChange={(e) => setDepositFn(e.target.value)}
             />
