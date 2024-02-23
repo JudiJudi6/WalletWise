@@ -25,7 +25,7 @@ const StyledAddFriend = styled.div`
   }
 
   @media (min-width: 900px) {
-    grid-row: 5;
+    grid-row: 4;
     grid-column: 1;
   }
 `;
