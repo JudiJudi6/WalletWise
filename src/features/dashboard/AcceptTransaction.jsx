@@ -3,8 +3,9 @@ import Button from "../../ui/Button";
 import { useCheckUser } from "../../hooks/useCheckUser";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import Spinner from "../../ui/Spinner";
 import { useUpdateNotifications } from "../../hooks/useUpdateNotifications";
+import { useChangeBalance } from "../../hooks/useChangeBalance";
+import { formatCurrency } from "../../utils/helpers";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -34,8 +35,21 @@ const Overlay = styled.div`
   transition: all 0.5s;
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
   color: var(--color-main);
+`;
+
+const Message = styled.p`
+  padding: 1rem 0;
+  color: #7a7979;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 2px;
+  margin-top: 2rem;
 `;
 
 function AcceptTransaction({
@@ -44,9 +58,13 @@ function AcceptTransaction({
   message,
   selectedFriend,
   defCurrency,
+  user,
+  amountOfDef,
+  clearForm,
 }) {
+  const { changeBalance } = useChangeBalance();
   const { data, check, isLoading: isLoadingUser } = useCheckUser();
-  const { isLoading, updateNotifications } = useUpdateNotifications();
+  const { updateNotifications } = useUpdateNotifications();
 
   useEffect(
     function () {
@@ -56,11 +74,18 @@ function AcceptTransaction({
   );
 
   async function send() {
-    const notification = { amount: "69" };
+    const notification = { amount, message, defCurrency, from: user.nickName };
+
+    if (amountOfDef - amount < 0) {
+      toast.error("You don't have enought money to do this transaction");
+      return;
+    }
 
     if (!isLoadingUser && data) {
-      console.log(data);
-      updateNotifications({userID: data.userID, notification});
+      changeBalance({ amount: -amount, cur: defCurrency });
+      updateNotifications({ userID: data.userID, notification });
+      clearForm();
+      setAcceptModal(false);
     } else {
       setAcceptModal(false);
       toast.error("User with this nick does not exist");
@@ -78,16 +103,27 @@ function AcceptTransaction({
             </StyledSpan>{" "}
             to <StyledSpan>{selectedFriend}</StyledSpan> with message:{" "}
           </p>
-          <p>{message}</p>
+          <Message>{message}</Message>
+          {amountOfDef - amount >= 0 ? (
+            <p>
+              Funds left after transaction:{" "}
+              {formatCurrency(amountOfDef - amount)} {defCurrency}
+            </p>
+          ) : (
+            <p>You don&apos;t have enought money to do this transaction</p>
+          )}
         </div>
-        <div>
+        <ButtonsContainer>
           <Button variation="danger" onClick={() => setAcceptModal(false)}>
             Decline
           </Button>
-          <Button onClick={send} disabled={isLoadingUser}>
+          <Button
+            onClick={send}
+            disabled={isLoadingUser || amountOfDef - amount < 0}
+          >
             Accept
           </Button>
-        </div>
+        </ButtonsContainer>
       </StyledModal>
     </Overlay>
   );
