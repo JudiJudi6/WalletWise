@@ -8,9 +8,9 @@ Live - [Visit demo](https://wallet-wise-five.vercel.app/)
 
 ## Build with
 
-[![React](https://img.shields.io/badge/React-blue.svg)](https://reactjs.org/)
-[![Supabase](https://img.shields.io/badge/Supabase-orange.svg)](https://supabase.io/)
-[![Styled Components](https://img.shields.io/badge/Styled_Components-pink.svg)](https://styled-components.com/)
+[![React](https://img.shields.io/badge/React-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-%2336B37E.svg?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.io/)
+[![Styled Components](https://img.shields.io/badge/Styled%20Components-%23DB7093.svg?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/)
 
 ## Pictures
 
