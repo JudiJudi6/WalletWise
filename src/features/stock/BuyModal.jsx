@@ -130,7 +130,7 @@ function BuyModal({ name, curID, defCur, price, onCloseModal }) {
           <Price>
             To pay: {formatCurrency(price * buy)} {defCur}
           </Price>
-          <Button disabled={buy === 0} onClick={onClickAction}>
+          <Button disabled={!buy} onClick={onClickAction}>
             Buy
           </Button>
         </>

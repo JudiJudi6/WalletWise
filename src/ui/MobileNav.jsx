@@ -21,6 +21,7 @@ const StyledMobileNav = styled(motion.nav)`
   padding: 2rem;
   width: 230px;
   background-color: var(--color-black-300);
+  z-index: 100;
 `;
 
 const HelperDiv = styled.div`

@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { formatCurrency } from "../utils/helpers";
-import Modal from "./Modal";
-import HistoryItemDetails from "./HistoryItemDetails";
+import Modal from "./../../ui/Modal";
+import HistoryTransferDetails from "./HistoryTransferDetails";
 
 const StyledHistoryItem = styled.button`
   display: flex;
@@ -24,11 +23,11 @@ const StyledMainImg = styled.img`
   border-radius: 50%;
 `;
 
-const SellP = styled.span`
+export const SellP = styled.span`
   color: var(--color-error);
 `;
 
-const BuyP = styled.span`
+export const BuyP = styled.span`
   color: var(--color-green);
 `;
 
@@ -48,30 +47,30 @@ const MainP = styled.p`
   }
 `;
 
-function HistoryItem({ item, more }) {
+function HistoryTransfer({ item }) {
   console.log(item);
   return (
     <Modal>
       <Modal.Open opens="his">
         <StyledHistoryItem>
-          <StyledMainImg src={`/${item.cur}.png`} />
+          <StyledMainImg src={`/${item.defCur}.png`} />
           <MainP>
             You{" "}
-            {item.type === "sell" ? (
+            {item.type === "send" ? (
               <SellP>{item.type}</SellP>
             ) : (
               <BuyP>{item.type}</BuyP>
             )}{" "}
-            {item.amount} {item.cur} for {formatCurrency(item.price)}{" "}
-            {item.defCur}
+            {item.amount} {item.defCur} {item.type === "send" ? "to" : "from"}{" "}
+            {item.to}
           </MainP>
         </StyledHistoryItem>
       </Modal.Open>
       <Modal.Window name="his">
-        <HistoryItemDetails item={item} more={more} />
+        <HistoryTransferDetails item={item} />
       </Modal.Window>
     </Modal>
   );
 }
 
-export default HistoryItem;
+export default HistoryTransfer;

@@ -13,7 +13,7 @@ const StyledMarketHistory = styled.div`
   }
 
   @media (min-width: 900px) {
-    grid-row: 3/5;
+    grid-row: 1/3;
     grid-column: 2;
   }
 `;
@@ -24,32 +24,33 @@ export const StyledHeader = styled.p`
   margin-bottom: 15px;
 `;
 
-const CardInfo = styled.p`
-  font-size: 16px;
+const Card = styled.div`
+  max-height: 69vh;
+  overflow-y: auto;
+  /* font-size: 16px;
   margin-bottom: 10px;
-  padding-left: 15px;
+  padding-left: 15px; */
 `;
 
-function MarketHistory({ user }) {
+function TransactionsHistory({ user }) {
   const historyArray = user.user.user_metadata.history;
-  const last3History = historyArray.slice(
-    historyArray.length - 3,
-    historyArray.length
-  );
 
   console.log(historyArray);
 
   return (
     <StyledMarketHistory to={"/stats"}>
       <StyledHeader>Market History</StyledHeader>
-      <CardInfo>Last 3 operations:</CardInfo>
-      {last3History.length === 0 ? (
-        <p>Go to the Stock to do some operations</p>
-      ) : (
-        last3History.map((item, i) => <HistoryItem item={item} key={i} />)
-      )}
+      <Card>
+        {historyArray.length === 0 ? (
+          <p>Go to the Stock to do some operations</p>
+        ) : (
+          historyArray
+            .reverse()
+            .map((item, i) => <HistoryItem item={item} key={i} more={false} />)
+        )}
+      </Card>
     </StyledMarketHistory>
   );
 }
 
-export default MarketHistory;
+export default TransactionsHistory;

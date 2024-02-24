@@ -9,7 +9,7 @@ export function useAddTransactionHistory() {
     mutationFn: (newHistory) => {
       const data = queryClient.getQueryData(["user"]);
       let oldHistory = data.user.user_metadata.history;
-      changeHistoryApi([...oldHistory, newHistory])
+      changeHistoryApi([newHistory, ...oldHistory]);
     },
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);

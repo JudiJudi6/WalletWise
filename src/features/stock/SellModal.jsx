@@ -124,7 +124,7 @@ function SellModal({ name, curID, defCur, price, onCloseModal }) {
               </span>
             )}
           </Price>
-          <Button disabled={sell === 0} onClick={onClickAction}>
+          <Button disabled={!sell} onClick={onClickAction}>
             Sell
           </Button>
         </>

@@ -28,10 +28,11 @@ const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 300px;
   gap: 20px;
 `;
 
-function HistoryItemDetails({ item }) {
+function HistoryItemDetails({ item, more = true }) {
   const navigate = useNavigate();
   const itemLink = `/stock/${item.cur}?defCurrency=${item.defCur}`;
 
@@ -60,9 +61,11 @@ function HistoryItemDetails({ item }) {
           <Button size="small" onClick={() => navigate(itemLink)}>
             Show Currency
           </Button>
-          <Button size="small" onClick={() => navigate("/stats")}>
-            More History
-          </Button>
+          {more && (
+            <Button size="small" onClick={() => navigate("/stats")}>
+              More History
+            </Button>
+          )}
         </ButtonsContainer>
       </MainDiv>
     </StyledHistoryItemDetail>

@@ -124,54 +124,56 @@ function Notifications() {
   }
 
   return (
-    <Modal key={refreshKey}>
-      <Modal.Open>
-        <NotifyButton>
-          <IoIosNotifications />
-          {data?.at(0)?.notifications?.length > 0 && (
-            <StyledNotifications>
-              {data?.at(0)?.notifications?.length}
-            </StyledNotifications>
-          )}
-        </NotifyButton>
-      </Modal.Open>
-      <Modal.Window>
-        <div>
-          {data?.at(0)?.notifications?.length > 0 ? (
-            data?.at(0)?.notifications?.map((item, i) => (
-              <Notify key={i}>
+    <div>
+      <Modal key={refreshKey}>
+        <Modal.Open>
+          <NotifyButton>
+            <IoIosNotifications />
+            {data?.at(0)?.notifications?.length > 0 && (
+              <StyledNotifications>
+                {data?.at(0)?.notifications?.length}
+              </StyledNotifications>
+            )}
+          </NotifyButton>
+        </Modal.Open>
+        <Modal.Window>
+          <div>
+            {data?.at(0)?.notifications?.length > 0 ? (
+              data?.at(0)?.notifications?.map((item, i) => (
+                <Notify key={i}>
+                  <NotifyHeader>
+                    <p>
+                      <Color>{item.from}</Color> send you:{" "}
+                    </p>
+                    <Amount>
+                      <Color>
+                        {item.amount} {item.defCurrency}
+                      </Color>{" "}
+                    </Amount>
+                  </NotifyHeader>
+                  <Message>{item.message}</Message>
+                  <Container>
+                    <Button
+                      size="verysmall"
+                      onClick={() => onClick(i)}
+                      // disabled={isSuccess}
+                    >
+                      Confirm
+                    </Button>
+                  </Container>
+                </Notify>
+              ))
+            ) : (
+              <Notify>
                 <NotifyHeader>
-                  <p>
-                    <Color>{item.from}</Color> send you:{" "}
-                  </p>
-                  <Amount>
-                    <Color>
-                      {item.amount} {item.defCurrency}
-                    </Color>{" "}
-                  </Amount>
+                  <p>You don&apos;t have any notifications :(</p>
                 </NotifyHeader>
-                <Message>{item.message}</Message>
-                <Container>
-                  <Button
-                    size="verysmall"
-                    onClick={() => onClick(i)}
-                    // disabled={isSuccess}
-                  >
-                    Confirm
-                  </Button>
-                </Container>
               </Notify>
-            ))
-          ) : (
-            <Notify>
-              <NotifyHeader>
-                <p>You don&apos;t have any notifications :(</p>
-              </NotifyHeader>
-            </Notify>
-          )}
-        </div>
-      </Modal.Window>
-    </Modal>
+            )}
+          </div>
+        </Modal.Window>
+      </Modal>
+    </div>
   );
 }
 

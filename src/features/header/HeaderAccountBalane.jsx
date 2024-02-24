@@ -5,13 +5,7 @@ function HeaderAccountBalane() {
   const { user } = useUser();
   const balance = user.user.user_metadata.balance;
   const usd = balance.find((cur) => cur.cur === "USD");
-  const eur = balance.find((cur) => cur.cur === "EUR");
-  return (
-    <p>
-      Balance: {formatCurrency(usd.amount)} USD, {formatCurrency(eur?.amount)}{" "}
-      EUR
-    </p>
-  );
+  return <p>Balance: {formatCurrency(usd.amount)} USD</p>;
 }
 
 export default HeaderAccountBalane;

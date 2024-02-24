@@ -40,7 +40,7 @@ export const StyledSpan = styled.span`
   color: var(--color-main);
 `;
 
-const Message = styled.p`
+export const Message = styled.p`
   padding: 1rem 0;
   color: #7a7979;
 `;

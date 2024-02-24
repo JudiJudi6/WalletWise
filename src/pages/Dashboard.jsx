@@ -17,7 +17,7 @@ const StyledDashboard = styled.div`
   }
 `;
 
-const WelcomeInfo = styled.div`
+export const WelcomeInfo = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
