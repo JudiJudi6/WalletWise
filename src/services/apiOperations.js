@@ -18,6 +18,15 @@ export async function changeHistory(history) {
   return data;
 }
 
+export async function changeHistoryTransaction(history) {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { transactionHistory: history },
+  });
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function addFriend(oldFriends, newFriend) {
   const friend = await checkNickNamesList(newFriend);
   console.log(friend);

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useUpdateNotifications } from "../../hooks/useUpdateNotifications";
 import { useChangeBalance } from "../../hooks/useChangeBalance";
 import { formatCurrency } from "../../utils/helpers";
+import { useAddOperationsHistory } from "../../hooks/useAddOperationsHistory";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -65,6 +66,8 @@ function AcceptTransaction({
   const { changeBalance } = useChangeBalance();
   const { data, check, isLoading: isLoadingUser } = useCheckUser();
   const { updateNotifications } = useUpdateNotifications();
+  const { changeHistory } = useAddOperationsHistory();
+  const today = new Date();
 
   useEffect(
     function () {
@@ -83,6 +86,14 @@ function AcceptTransaction({
 
     if (!isLoadingUser && data) {
       changeBalance({ amount: -amount, cur: defCurrency });
+      changeHistory({
+        type: "send",
+        amount: amount,
+        date: today.toLocaleDateString(),
+        defCur: defCurrency,
+        to: selectedFriend,
+        message: message,
+      });
       updateNotifications({ userID: data.userID, notification });
       clearForm();
       setAcceptModal(false);

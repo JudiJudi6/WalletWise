@@ -6,7 +6,8 @@ import { IoIosNotifications } from "react-icons/io";
 import Button from "../../ui/Button";
 import { useChangeBalance } from "../../hooks/useChangeBalance";
 import { useUserConfirmTransaction } from "../../hooks/useUserConfirmTransaction";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useAddOperationsHistory } from "../../hooks/useAddOperationsHistory";
 
 const NotifyButton = styled.button`
   position: relative;
@@ -101,14 +102,23 @@ const Amount = styled.span`
 function Notifications() {
   const { user } = useUser();
   const { data } = useUserNotifications(user.user.id);
-  const [refreshKey, setRefreshKey] = useState(0); 
-  const { changeBalance, isLoading: isLoadingBalance } = useChangeBalance();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const { changeBalance } = useChangeBalance();
   const { confirmNotification } = useUserConfirmTransaction();
-  console.log(data?.at(0)?.notifications);
+  const { changeHistory } = useAddOperationsHistory();
+  const today = new Date();
 
   function onClick(i) {
     const notify = data?.at(0)?.notifications.at(i);
     changeBalance({ amount: notify.amount, cur: notify.defCurrency });
+    changeHistory({
+      type: "received",
+      amount: notify.amount,
+      date: today.toLocaleDateString(),
+      defCur: notify.defCurrency,
+      to: notify.from,
+      message: notify.message,
+    });
     confirmNotification({ userID: user.user.id, index: i });
     setRefreshKey((prevKey) => prevKey + 1);
   }

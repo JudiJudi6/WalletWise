@@ -22,6 +22,7 @@ export async function signUp({
         friends: [],
         balance: [{ amount: 0, cur: "USD" }],
         history: [],
+        transactionHistory: [],
       },
     },
   });
