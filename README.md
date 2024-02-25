@@ -6,6 +6,14 @@ Wallet Wise is an online wallet simulator, allows users to transfer funds betwee
 
 Live - [Visit demo](https://wallet-wise-five.vercel.app/)
 
+### Test accounts
+
+E-mail: ```test@test.pl```
+Password: ```testtest```
+
+E-mail: ```test2@test.pl```
+Password: ```testtest```
+
 ## Build with
 
 [![React](https://img.shields.io/badge/React-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
