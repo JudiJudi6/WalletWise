@@ -172,7 +172,7 @@ function SendToFriends() {
     <StyledSendToFriends>
       <RowBetween>
         <div>
-          <Header>Send founds to your friends</Header>
+          <Header>Send funds to your friends</Header>
           <Column>
             <Row>
               <p>Select currency: </p>
